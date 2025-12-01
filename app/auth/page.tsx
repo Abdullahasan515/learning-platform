@@ -77,26 +77,23 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 via-background to-secondary/5 p-4">
-      <Card className="w-full max-w-md glass-effect border-primary/20">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#3F1F8C] via-[#1D96D3] to-[#97C945] p-4">
+      <Card className="w-full max-w-md glass-effect border-white/30 bg-black/40">
         <div className="p-8">
-          {/* Brand with big logo */}
+          {/* Brand with big logo only */}
           <div className="text-center mb-8">
             <div className="flex flex-col items-center">
-              <div className="relative w-20 h-20 md:w-28 md:h-28 mb-3">
+              <div className="relative w-20 h-20 md:w-28 md:h-28 mb-4">
                 <Image
                   src="/apple-icon.png"
-                  alt="شعار جامعة الباحة"
+                  alt="شعار المنصة التعليمية"
                   fill
                   priority
-                  className="object-contain drop-shadow-[0_0_30px_rgba(37,99,235,0.55)]"
+                  className="object-contain drop-shadow-[0_0_40px_rgba(56,189,248,0.7)]"
                 />
               </div>
-              <div className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
-                جامعة الباحة
-              </div>
             </div>
-            <p className="text-muted-foreground">
+            <p className="text-slate-100/90">
               {isLogin ? "مرحباً بعودتك إلى نظام التعليم الإلكتروني" : "انضم إلى نظام التعليم الإلكتروني"}
             </p>
           </div>
@@ -104,7 +101,7 @@ export default function AuthPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {!isLogin && (
               <div className="space-y-2">
-                <label className="text-sm font-medium flex items-center gap-2 text-primary">
+                <label className="text-sm font-medium flex items-center gap-2 text-[#97C945]">
                   <User className="w-4 h-4" />
                   الاسم الكامل
                 </label>
@@ -113,13 +110,13 @@ export default function AuthPage() {
                   placeholder="اسمك"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="bg-input/50 border-border/50 focus:border-primary/50 focus:ring-primary/20"
+                  className="bg-black/40 border-white/30 text-white placeholder:text-slate-300/70 focus:border-[#1D96D3]/70 focus:ring-[#1D96D3]/30"
                 />
               </div>
             )}
 
             <div className="space-y-2">
-              <label className="text-sm font-medium flex items-center gap-2 text-primary">
+              <label className="text-sm font-medium flex items-center gap-2 text-[#97C945]">
                 <Mail className="w-4 h-4" />
                 البريد الإلكتروني
               </label>
@@ -128,12 +125,12 @@ export default function AuthPage() {
                 placeholder="your@example.com"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="bg-input/50 border-border/50 focus:border-primary/50 focus:ring-primary/20"
+                className="bg-black/40 border-white/30 text-white placeholder:text-slate-300/70 focus:border-[#1D96D3]/70 focus:ring-[#1D96D3]/30"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium flex items-center gap-2 text-primary">
+              <label className="text-sm font-medium flex items-center gap-2 text-[#97C945]">
                 <Lock className="w-4 h-4" />
                 كلمة المرور
               </label>
@@ -143,12 +140,12 @@ export default function AuthPage() {
                   placeholder="••••••••"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="bg-input/50 border-border/50 focus:border-primary/50 focus:ring-primary/20 pr-10"
+                  className="bg-black/40 border-white/30 text-white placeholder:text-slate-300/70 focus:border-[#1D96D3]/70 focus:ring-[#1D96D3]/30 pr-10"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-200/80 hover:text-white"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -157,7 +154,7 @@ export default function AuthPage() {
 
             {!isLogin && (
               <div className="space-y-2">
-                <label className="text-sm font-medium flex items-center gap-2 text-primary">
+                <label className="text-sm font-medium flex items-center gap-2 text-[#97C945]">
                   <Lock className="w-4 h-4" />
                   تأكيد كلمة المرور
                 </label>
@@ -166,13 +163,13 @@ export default function AuthPage() {
                   placeholder="••••••••"
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  className="bg-input/50 border-border/50 focus:border-primary/50 focus:ring-primary/20"
+                  className="bg-black/40 border-white/30 text-white placeholder:text-slate-300/70 focus:border-[#1D96D3]/70 focus:ring-[#1D96D3]/30"
                 />
               </div>
             )}
 
             {error && (
-              <div className="p-3 bg-destructive/10 border border-destructive/50 rounded-lg text-sm text-destructive">
+              <div className="p-3 bg-red-500/10 border border-red-400/60 rounded-lg text-sm text-red-100">
                 {error}
               </div>
             )}
@@ -180,17 +177,17 @@ export default function AuthPage() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-2 h-11 transition-smooth"
+              className="w-full bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] hover:opacity-90 text-white font-semibold py-2 h-11 transition-smooth"
             >
               {loading ? "جاري المعالجة..." : isLogin ? "دخول" : "إنشاء حساب"}
             </Button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-muted-foreground text-sm">
+            <p className="text-slate-100/80 text-sm">
               {isLogin ? "ليس لديك حساب؟" : "هل لديك حساب بالفعل؟"}
               <Link href={isLogin ? "/auth?type=signup" : "/auth?type=login"}>
-                <button className="text-primary hover:text-primary/80 font-semibold mr-1 transition-smooth">
+                <button className="text-[#1D96D3] hover:text-[#97C945] font-semibold mr-1 transition-smooth">
                   {isLogin ? "انضم الآن" : "دخول"}
                 </button>
               </Link>

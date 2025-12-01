@@ -4,11 +4,11 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated to exact Al-Baha University brand colors */
-  --navy: #31428a;
-  --sky-blue: #1d96d3;
-  --bright-green: #97c945;
-  --teal: #50a6b7;
+  /* 🎓 Al-Baha University brand colors */
+  --navy: #31428a;        /* الأساسي */
+  --sky-blue: #1d96d3;    /* الأزرق الفاتح */
+  --bright-green: #97c945;/* الأخضر */
+  --teal: #50a6b7;        /* تركواز */
 
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -16,103 +16,130 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  /* Primary: Navy Blue #31428A */
-  --primary: #31428a;
+
+  /* Primary: Navy */
+  --primary: var(--navy);
   --primary-foreground: oklch(0.985 0 0);
 
-  /* Secondary: Sky Blue #1D96D3 */
-  --secondary: #1d96d3;
+  /* Secondary: Sky Blue */
+  --secondary: var(--sky-blue);
   --secondary-foreground: oklch(0.985 0 0);
 
-  /* Accent: Bright Green #97C945 */
-  --accent: #97c945;
+  /* Accent: Bright Green */
+  --accent: var(--bright-green);
   --accent-foreground: oklch(0.145 0 0);
 
-  /* Tertiary: Teal #50A6B7 */
-  --tertiary: #50a6b7;
+  /* Tertiary: Teal */
+  --tertiary: var(--teal);
   --tertiary-foreground: oklch(0.985 0 0);
 
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
+
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
+
   --border: #e0e0e0;
   --input: #f5f5f5;
-  --ring: #31428a;
-  --chart-1: #31428a;
-  --chart-2: #1d96d3;
-  --chart-3: #97c945;
-  --chart-4: #50a6b7;
+  --ring: var(--navy);
+
+  /* Charts using brand palette */
+  --chart-1: var(--navy);
+  --chart-2: var(--sky-blue);
+  --chart-3: var(--bright-green);
+  --chart-4: var(--teal);
   --chart-5: #ffb81c;
+
   --radius: 0.625rem;
+
   --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: #31428a;
-  --sidebar-primary: #31428a;
+  --sidebar-foreground: var(--navy);
+  --sidebar-primary: var(--navy);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: #1d96d3;
+  --sidebar-accent: var(--sky-blue);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: #e0e0e0;
-  --sidebar-ring: #31428a;
+  --sidebar-ring: var(--navy);
 }
 
 .dark {
-  --background: #0a0e27;
+  /* خلفية داكنة مع الحفاظ على ألوان البراند */
+  --background: #05081a;
   --foreground: #f5f5f5;
-  --card: #1a1f3a;
+  --card: #11152d;
   --card-foreground: #f5f5f5;
-  --popover: #1a1f3a;
+  --popover: #11152d;
   --popover-foreground: #f5f5f5;
-  --primary: #1d96d3;
-  --primary-foreground: #31428a;
-  --secondary: #97c945;
-  --secondary-foreground: #31428a;
-  --accent: #50a6b7;
+
+  --primary: var(--sky-blue);
+  --primary-foreground: var(--navy);
+
+  --secondary: var(--bright-green);
+  --secondary-foreground: var(--navy);
+
+  --accent: var(--teal);
   --accent-foreground: #f5f5f5;
-  --muted: #404060;
+
+  --muted: #343a5a;
   --muted-foreground: #a0a0b0;
+
   --border: #2a2f4a;
-  --input: #1a1f3a;
-  --ring: #1d96d3;
-  --sidebar: #0a0e27;
+  --input: #11152d;
+  --ring: var(--sky-blue);
+
+  --sidebar: #05081a;
   --sidebar-foreground: #f5f5f5;
-  --sidebar-primary: #1d96d3;
+  --sidebar-primary: var(--sky-blue);
   --sidebar-primary-foreground: #f5f5f5;
-  --sidebar-accent: #97c945;
-  --sidebar-accent-foreground: #31428a;
+  --sidebar-accent: var(--bright-green);
+  --sidebar-accent-foreground: var(--navy);
   --sidebar-border: #2a2f4a;
-  --sidebar-ring: #1d96d3;
+  --sidebar-ring: var(--sky-blue);
 }
 
 @theme inline {
-  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
+  /* تقدر تضيفي الخطوط هنا لو مستخدَمة في layout */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
+
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+
+  /* tertiary custom color */
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-foreground: var(--tertiary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);

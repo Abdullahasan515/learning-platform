@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -73,7 +74,7 @@ export default function DashboardPage() {
   const [filteredCourses, setFilteredCourses] = useState(SAMPLE_COURSES)
 
   useEffect(() => {
-    const userData = localStorage.getItem("user")
+    const userData = typeof window !== "undefined" ? localStorage.getItem("user") : null
     if (!userData) {
       router.push("/auth")
       return
@@ -99,18 +100,27 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/5 to-background">
-      <header className="border-b border-border/50 backdrop-blur-xl sticky top-0 z-50 bg-white/80">
+      {/* Header with logo */}
+      <header className="border-b border-border/50 backdrop-blur-xl sticky top-0 z-50 bg-background/80">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xs">جامعة</span>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="relative w-10 h-10 md:w-16 md:h-16">
+                <Image
+                  src="/apple-icon.png"
+                  alt="شعار جامعة الباحة"
+                  fill
+                  className="object-contain drop-shadow-md"
+                  priority
+                />
               </div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                 جامعة الباحة
               </h1>
             </div>
-            <p className="text-muted-foreground text-sm">أهلاً وسهلاً، {user.name || user.email}</p>
+            <p className="text-muted-foreground text-sm">
+              أهلاً وسهلاً، {user.name || user.email}
+            </p>
           </div>
           <Button
             variant="outline"
@@ -128,91 +138,12 @@ export default function DashboardPage() {
         {/* Welcome Section */}
         <div className="mb-12">
           <h2 className="text-3xl font-bold mb-2 text-primary">رحلتك الأكاديمية</h2>
-          <p className="text-muted-foreground">استمر في التعلم، تتبع تقدمك، وحقق نجاحك الأكاديمي</p>
+          <p className="text-muted-foreground">
+            استمر في التعلم، تتبع تقدمك، وحقق نجاحك الأكاديمي
+          </p>
         </div>
 
         {/* Search & Filter */}
         <div className="mb-8">
           <div className="relative">
-            <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder="ابحث عن دورة..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-4 pr-12 py-3 bg-input/50 border border-border/50 rounded-lg focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-smooth"
-            />
-          </div>
-        </div>
-
-        {/* Courses Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
-          {filteredCourses.map((course) => (
-            <Link key={course.id} href={`/courses/${course.id}`}>
-              <Card className="h-full glass-effect border-primary/20 hover:border-primary/50 transition-smooth cursor-pointer group overflow-hidden">
-                <div className="w-full h-48 overflow-hidden relative">
-                  <img
-                    src={course.image || "/placeholder.svg"}
-                    alt={course.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-3 right-3 flex items-center gap-1 bg-secondary/90 px-2 py-1 rounded-full backdrop-blur-sm">
-                    <Star className="w-4 h-4 text-yellow-300" fill="currentColor" />
-                    <span className="text-xs font-semibold text-white">{course.rating}</span>
-                  </div>
-                </div>
-
-                <div className="p-6 flex flex-col h-full">
-                  <div className="mb-4">
-                    <p className="text-xs font-medium text-secondary mb-2">{course.category}</p>
-                    <h3 className="text-lg font-semibold group-hover:text-primary transition-smooth">{course.title}</h3>
-                  </div>
-
-                  <p className="text-muted-foreground text-sm mb-4">الأستاذ/ة: {course.instructor}</p>
-
-                  {course.progress > 0 && (
-                    <div className="mb-4">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-xs font-medium">التقدم</span>
-                        <span className="text-xs text-muted-foreground">{course.progress}%</span>
-                      </div>
-                      <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-gradient-to-r from-primary to-secondary"
-                          style={{ width: `${course.progress}%` }}
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="flex items-center justify-between text-sm text-muted-foreground mt-auto pt-4 border-t border-border/50">
-                    <div className="flex items-center gap-4">
-                      <span className="flex items-center gap-1">
-                        <Play className="w-4 h-4" />
-                        {course.lessons} محاضرة
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {course.duration}
-                      </span>
-                    </div>
-                  </div>
-
-                  <Button className="w-full mt-4 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold">
-                    {course.progress > 0 ? "استمر" : "ابدأ"} الآن
-                  </Button>
-                </div>
-              </Card>
-            </Link>
-          ))}
-        </div>
-
-        {filteredCourses.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground">لم نجد دورات. جرب بحث مختلف.</p>
-          </div>
-        )}
-      </main>
-    </div>
-  )
-}
+            <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted

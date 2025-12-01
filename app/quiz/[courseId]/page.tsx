@@ -113,10 +113,10 @@ export default function QuizPage() {
   const isAnswered = answers[currentQuestion] !== -1
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#3F1F8C] via-[#1D96D3] to-[#97C945] text-white">
+    <div className="min-h-screen bg-gradient-to.br from-[#F5FFF7] via-[#F3F7FF] to-[#F7F3FF]">
       {/* Header */}
-      <header className="border-b border-white/20 backdrop-blur-xl sticky top-0 z-40 bg-[#020617]/90">
-        <div className="max-w-4xl mx-auto px-4 md:px-6 py-2 flex items-center justify-between gap-4">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div className="max-w-4xl mx-auto px-4 md:px-6 py-1.5 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="relative w-14 h-14 md:w-16 md:h-16">
               <Image
@@ -124,18 +124,18 @@ export default function QuizPage() {
                 alt="شعار المنصة التعليمية"
                 fill
                 priority
-                className="object-contain drop-shadow-[0_0_30px_rgba(56,189,248,0.8)]"
+                className="object-contain drop-shadow-[0_0_20px_rgba(63,31,140,0.5)]"
               />
             </div>
             <div>
-              <h1 className="text-xl md:text-2xl font-bold">اختبار المقرر</h1>
-              <p className="text-slate-100/80 text-sm">قيّم فهمك لمحتوى المقرر</p>
+              <h1 className="text-lg md:text-2xl font-bold text-slate-900">اختبار المقرر</h1>
+              <p className="text-slate-600 text-xs md:text-sm">قيّم فهمك للمحتوى المرئي الذي شاهدته.</p>
             </div>
           </div>
           <Link href="/dashboard">
             <Button
-              variant="ghost"
-              className="gap-2 text-slate-100 hover:text-white hover:bg-white/10"
+              variant="outline"
+              className="gap-2 border-slate-300 bg-white/70 text-slate-800 hover:bg-slate-100"
             >
               <ArrowLeft className="w-4 h-4" />
               الرجوع للوحة التحكم
@@ -144,69 +144,66 @@ export default function QuizPage() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 md:px-6 py-10">
+      <main className="max-w-4xl mx-auto px-4 md:px-6 py-8">
         {!submitted ? (
           <div className="space-y-8">
-            {/* Quiz Header */}
+            {/* Quiz header */}
             <div>
-              <h1 className="text-3xl font-bold mb-2">اختبار المقرر</h1>
-              <p className="text-slate-100/85">
+              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-1">اختبار المقرر</h2>
+              <p className="text-slate-600 text-sm md:text-base">
                 السؤال {currentQuestion + 1} من {questions.length}
               </p>
             </div>
 
-            {/* Progress Bar */}
+            {/* Progress bar */}
             <div>
-              <div className="w-full h-2 bg-white/25 rounded-full overflow-hidden">
+              <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-[#3F1F8C] via-[#1D96D3] to-[#97C945] transition-all duration-500"
                   style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
                 />
               </div>
             </div>
 
-            {/* Question Card */}
-            <Card className="border border-white/25 bg-[#020617] p-6 md:p-8 text-white shadow-xl shadow-black/50">
-              <h2 className="text-2xl font-bold mb-8">{question.question}</h2>
+            {/* Question card */}
+            <Card className="bg-white/90 border border-slate-200 shadow-md p-6 md:p-7">
+              <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-6">{question.question}</h3>
 
-              {/* Options */}
-              <div className="space-y-4 mb-8">
-                {question.options.map((option, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleSelectAnswer(index)}
-                    disabled={submitted}
-                    className={`w-full p-4 rounded-lg border-2 transition-all text-right font-medium ${
-                      answers[currentQuestion] === index
-                        ? "border-[#1D96D3] bg-[#1D96D3]/15"
-                        : "border-white/30 hover:border-[#1D96D3]/70 hover:bg-white/5"
-                    }`}
-                  >
-                    <div className="flex.items-center gap-3">
-                      <div
-                        className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                          answers[currentQuestion] === index
-                            ? "border-[#1D96D3] bg-[#1D96D3]"
-                            : "border-white/40"
-                        }`}
-                      >
-                        {answers[currentQuestion] === index && (
-                          <div className="w-2 h-2 rounded-full bg-white" />
-                        )}
+              <div className="space-y-3 mb-6">
+                {question.options.map((option, index) => {
+                  const isSelected = answers[currentQuestion] === index
+                  return (
+                    <button
+                      key={index}
+                      type="button"
+                      onClick={() => handleSelectAnswer(index)}
+                      className={`w-full text-right p-3 rounded-lg border-2 text-sm md:text-base transition-colors ${
+                        isSelected
+                          ? "border-[#1D96D3] bg-[#F3F7FF]"
+                          : "border-slate-200 bg-white hover:border-[#1D96D3] hover:bg-slate-50"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <div
+                          className={`w-5 h-5 rounded-full border flex items-center justify-center ${
+                            isSelected ? "border-[#1D96D3] bg-[#1D96D3]" : "border-slate-300"
+                          }`}
+                        >
+                          {isSelected && <div className="w-2 h-2 rounded-full bg-white" />}
+                        </div>
+                        <span className="flex-1 text-slate-900">{option}</span>
                       </div>
-                      <span className="flex-1">{option}</span>
-                    </div>
-                  </button>
-                ))}
+                    </button>
+                  )
+                })}
               </div>
 
-              {/* Navigation */}
-              <div className="flex gap-4.pt-6 border-t border-white/20">
+              <div className="flex gap-3 pt-4 border-t border-slate-200">
                 <Button
                   variant="outline"
                   onClick={handlePreviousQuestion}
                   disabled={currentQuestion === 0}
-                  className="border-white/40 text-white hover:bg-white/10"
+                  className="border-slate-300 text-slate-800 bg-white/80 hover:bg-slate-100 disabled:opacity-50"
                 >
                   السابق
                 </Button>
@@ -214,7 +211,7 @@ export default function QuizPage() {
                   variant="outline"
                   onClick={handleNextQuestion}
                   disabled={currentQuestion === questions.length - 1}
-                  className="border-white/40 text-white hover:bg-white/10"
+                  className="border-slate-300 text-slate-800 bg.white/80 hover:bg-slate-100 disabled:opacity-50"
                 >
                   التالي
                 </Button>
@@ -222,7 +219,7 @@ export default function QuizPage() {
                   <Button
                     onClick={handleSubmitQuiz}
                     disabled={!isAnswered}
-                    className="ml-auto bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] hover:opacity-90 text-white"
+                    className="ml-auto bg-gradient-to-r.from-[#3F1F8C] via-[#1D96D3] to-[#97C945] text-white hover:opacity-90 disabled:opacity-50"
                   >
                     إنهاء الاختبار
                   </Button>
@@ -231,53 +228,61 @@ export default function QuizPage() {
             </Card>
           </div>
         ) : (
-          /* Results Screen */
           <div className="space-y-8">
+            {/* Result summary */}
             <div className="text-center">
-              <div className="inline-block mb-6">
+              <div className="inline-block mb-5">
                 {score >= 70 ? (
-                  <CheckCircle2 className="w-20 h-20 text-green-300" />
+                  <CheckCircle2 className="w-16 h-16 text-green-600" />
                 ) : (
-                  <XCircle className="w-20 h-20 text-red-300" />
+                  <XCircle className="w-16 h-16 text-red-500" />
                 )}
               </div>
-              <h1 className="text-4xl font-bold mb-2">
-                {score >= 70 ? "نتيجة ممتازة!" : "حاول مرة أخرى"}
-              </h1>
-              <p className="text-slate-100/90 text-lg">
-                حصلت على <span className="text-[#97C945] font-bold">{score}%</span>
+              <h2 className="text-3xl font-bold text-slate-900 mb-2">
+                {score >= 70 ? "نتيجة ممتازة!" : "تستطيع أن تحسّن أكثر"}
+              </h2>
+              <p className="text-slate-700 text-base md:text-lg">
+                حصلت على{" "}
+                <span className="font-bold text-[#3F1F8C]">
+                  {score}%
+                </span>{" "}
+                في هذا الاختبار.
               </p>
             </div>
 
-            {/* Results Details */}
-            <Card className="border border-white/25 bg-[#020617] p-6 md:p-8 text-white.shadow-xl shadow-black/50">
-              <h2 className="text-2xl font-bold mb-6">إجاباتك</h2>
+            {/* Answers details */}
+            <Card className="bg-white/90 border border-slate-200 shadow-md p-6 md:p-7">
+              <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-5">إجاباتك</h3>
               <div className="space-y-4">
-                {questions.map((q, index) => (
-                  <div key={index} className="pb-4 border-b border-white/20">
-                    <p className="font-semibold mb-2">{q.question}</p>
-                    <p
-                      className={`text-sm mb-1 ${
-                        answers[index] === q.correctAnswer ? "text-green-300" : "text-red-300"
-                      }`}
-                    >
-                      إجابتك:{" "}
-                      {answers[index] >= 0 ? q.options[answers[index]] : "لم يتم اختيار إجابة"}
-                    </p>
-                    {answers[index] !== q.correctAnswer && (
-                      <p className="text-sm text-green-300">
-                        الإجابة الصحيحة: {q.options[q.correctAnswer]}
+                {questions.map((q, index) => {
+                  const userAnswerIndex = answers[index]
+                  const isCorrect = userAnswerIndex === q.correctAnswer
+                  return (
+                    <div key={q.id} className="border-b border-slate-100 pb-3">
+                      <p className="font-semibold text-slate-900 mb-1">{q.question}</p>
+                      <p
+                        className={`text-sm mb-1 ${
+                          isCorrect ? "text-green-600" : "text-red-600"
+                        }`}
+                      >
+                        إجابتك:{" "}
+                        {userAnswerIndex >= 0 ? q.options[userAnswerIndex] : "لم يتم اختيار إجابة"}
                       </p>
-                    )}
-                  </div>
-                ))}
+                      {!isCorrect && (
+                        <p className="text-sm text-green-700">
+                          الإجابة الصحيحة: {q.options[q.correctAnswer]}
+                        </p>
+                      )}
+                    </div>
+                  )
+                })}
               </div>
             </Card>
 
-            {/* Action Buttons */}
-            <div className="flex gap-4">
+            {/* Actions */}
+            <div className="flex flex-col md:flex-row gap-3">
               <Link href="/dashboard" className="flex-1">
-                <Button className="w-full bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] hover:opacity-90 text-white">
+                <Button className="w-full bg-gradient-to-r from-[#3F1F8C] via-[#1D96D3] to-[#97C945] text-white hover:opacity-90">
                   الرجوع للوحة التحكم
                 </Button>
               </Link>
@@ -290,7 +295,7 @@ export default function QuizPage() {
                     setAnswers(new Array(questions.length).fill(-1))
                     setScore(0)
                   }}
-                  className="flex-1 border-white/40 text-white hover:bg-white/10"
+                  className="flex-1.border-slate-300 bg-white/80 text-slate-800 hover:bg-slate-100"
                 >
                   إعادة الاختبار
                 </Button>

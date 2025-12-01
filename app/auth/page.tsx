@@ -69,7 +69,7 @@ export default function AuthPage() {
         )
       }
       window.location.href = "/dashboard"
-    } catch (err) {
+    } catch {
       setError("فشل التحقق. يرجى المحاولة مرة أخرى.")
     } finally {
       setLoading(false)
@@ -77,8 +77,8 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#3F1F8C] via-[#1D96D3] to-[#97C945] p-4">
-      <Card className="w-full max-w-md border border-white/25 bg-[#020617] shadow-2xl shadow-black/60">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+      <Card className="w-full max-w-md border border-slate-200 bg-white">
         <div className="p-8">
           {/* Brand with big logo only */}
           <div className="text-center mb-8">
@@ -89,11 +89,11 @@ export default function AuthPage() {
                   alt="شعار المنصة التعليمية"
                   fill
                   priority
-                  className="object-contain drop-shadow-[0_0_40px_rgba(56,189,248,0.8)]"
+                  className="object-contain"
                 />
               </div>
             </div>
-            <p className="text-slate-100/90 text-sm md:text-base">
+            <p className="text-slate-700 text-sm md:text-base">
               {isLogin ? "مرحباً بعودتك إلى نظام التعليم الإلكتروني" : "أنشئ حساباً وابدأ رحلتك التعليمية"}
             </p>
           </div>
@@ -101,7 +101,7 @@ export default function AuthPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {!isLogin && (
               <div className="space-y-2">
-                <label className="text-sm font-medium flex items-center gap-2 text-[#97C945]">
+                <label className="text-sm font-medium flex items-center gap-2 text-slate-800">
                   <User className="w-4 h-4" />
                   الاسم الكامل
                 </label>
@@ -110,13 +110,13 @@ export default function AuthPage() {
                   placeholder="اسمك"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="bg-slate-900 border-slate-700 text-white placeholder:text-slate-400 focus:border-[#1D96D3] focus:ring-[#1D96D3]/40"
+                  className="bg-white border-slate-300 text-slate-900 focus:border-[#1D96D3] focus:ring-[#1D96D3]/30"
                 />
               </div>
             )}
 
             <div className="space-y-2">
-              <label className="text-sm font-medium flex items-center gap-2 text-[#97C945]">
+              <label className="text-sm font-medium flex items-center gap-2 text-slate-800">
                 <Mail className="w-4 h-4" />
                 البريد الإلكتروني
               </label>
@@ -125,12 +125,12 @@ export default function AuthPage() {
                 placeholder="your@example.com"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="bg-slate-900 border-slate-700 text-white placeholder:text-slate-400 focus:border-[#1D96D3] focus:ring-[#1D96D3]/40"
+                className="bg-white border-slate-300 text-slate-900 focus:border-[#1D96D3] focus:ring-[#1D96D3]/30"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium flex items-center gap-2 text-[#97C945]">
+              <label className="text-sm font-medium flex items.center gap-2 text-slate-800">
                 <Lock className="w-4 h-4" />
                 كلمة المرور
               </label>
@@ -140,12 +140,12 @@ export default function AuthPage() {
                   placeholder="••••••••"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="bg-slate-900 border-slate-700 text-white placeholder:text-slate-400 focus:border-[#1D96D3] focus:ring-[#1D96D3]/40 pr-10"
+                  className="bg-white border-slate-300 text-slate-900 focus:border-[#1D96D3] focus:ring-[#1D96D3]/30 pr-10"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 hover:text-white"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -154,7 +154,7 @@ export default function AuthPage() {
 
             {!isLogin && (
               <div className="space-y-2">
-                <label className="text-sm font-medium flex items-center gap-2 text-[#97C945]">
+                <label className="text-sm font-medium flex items-center gap-2 text-slate-800">
                   <Lock className="w-4 h-4" />
                   تأكيد كلمة المرور
                 </label>
@@ -163,13 +163,13 @@ export default function AuthPage() {
                   placeholder="••••••••"
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  className="bg-slate-900 border-slate-700 text-white placeholder:text-slate-400 focus:border-[#1D96D3] focus:ring-[#1D96D3]/40"
+                  className="bg-white border-slate-300 text-slate-900 focus:border-[#1D96D3] focus:ring-[#1D96D3]/30"
                 />
               </div>
             )}
 
             {error && (
-              <div className="p-3 bg-red-500/10 border border-red-500/70 rounded-lg text-sm text-red-100">
+              <div className="p-3 bg-red-50 border border-red-300 rounded-lg text-sm text-red-700">
                 {error}
               </div>
             )}
@@ -177,17 +177,17 @@ export default function AuthPage() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] hover:opacity-90 text-white font-semibold py-2 h-11"
+              className="w-full bg-[#1D96D3] hover:bg-[#1877a8] text-white font-semibold py-2 h-11"
             >
               {loading ? "جاري المعالجة..." : isLogin ? "دخول" : "إنشاء حساب"}
             </Button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-slate-100/80 text-sm">
+            <p className="text-slate-700 text-sm">
               {isLogin ? "ليس لديك حساب؟" : "هل لديك حساب بالفعل؟"}
               <Link href={isLogin ? "/auth?type=signup" : "/auth?type=login"}>
-                <button className="text-[#1D96D3] hover:text-[#97C945] font-semibold mr-1">
+                <button className="text-[#3F1F8C] hover:text-[#1D96D3] font-semibold mr-1">
                   {isLogin ? "انضم الآن" : "تسجيل الدخول"}
                 </button>
               </Link>

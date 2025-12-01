@@ -78,23 +78,23 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#3F1F8C] via-[#1D96D3] to-[#97C945] p-4">
-      <Card className="w-full max-w-md glass-effect border-white/30 bg-black/40">
+      <Card className="w-full max-w-md border border-white/25 bg-[#020617] shadow-2xl shadow-black/60">
         <div className="p-8">
           {/* Brand with big logo only */}
           <div className="text-center mb-8">
             <div className="flex flex-col items-center">
-              <div className="relative w-20 h-20 md:w-28 md:h-28 mb-4">
+              <div className="relative w-24 h-24 md:w-28 md:h-28 mb-4">
                 <Image
                   src="/apple-icon.png"
                   alt="شعار المنصة التعليمية"
                   fill
                   priority
-                  className="object-contain drop-shadow-[0_0_40px_rgba(56,189,248,0.7)]"
+                  className="object-contain drop-shadow-[0_0_40px_rgba(56,189,248,0.8)]"
                 />
               </div>
             </div>
-            <p className="text-slate-100/90">
-              {isLogin ? "مرحباً بعودتك إلى نظام التعليم الإلكتروني" : "انضم إلى نظام التعليم الإلكتروني"}
+            <p className="text-slate-100/90 text-sm md:text-base">
+              {isLogin ? "مرحباً بعودتك إلى نظام التعليم الإلكتروني" : "أنشئ حساباً وابدأ رحلتك التعليمية"}
             </p>
           </div>
 
@@ -110,7 +110,7 @@ export default function AuthPage() {
                   placeholder="اسمك"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="bg-black/40 border-white/30 text-white placeholder:text-slate-300/70 focus:border-[#1D96D3]/70 focus:ring-[#1D96D3]/30"
+                  className="bg-slate-900 border-slate-700 text-white placeholder:text-slate-400 focus:border-[#1D96D3] focus:ring-[#1D96D3]/40"
                 />
               </div>
             )}
@@ -125,7 +125,7 @@ export default function AuthPage() {
                 placeholder="your@example.com"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="bg-black/40 border-white/30 text-white placeholder:text-slate-300/70 focus:border-[#1D96D3]/70 focus:ring-[#1D96D3]/30"
+                className="bg-slate-900 border-slate-700 text-white placeholder:text-slate-400 focus:border-[#1D96D3] focus:ring-[#1D96D3]/40"
               />
             </div>
 
@@ -140,12 +140,12 @@ export default function AuthPage() {
                   placeholder="••••••••"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="bg-black/40 border-white/30 text-white placeholder:text-slate-300/70 focus:border-[#1D96D3]/70 focus:ring-[#1D96D3]/30 pr-10"
+                  className="bg-slate-900 border-slate-700 text-white placeholder:text-slate-400 focus:border-[#1D96D3] focus:ring-[#1D96D3]/40 pr-10"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-200/80 hover:text-white"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 hover:text-white"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -163,13 +163,13 @@ export default function AuthPage() {
                   placeholder="••••••••"
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  className="bg-black/40 border-white/30 text-white placeholder:text-slate-300/70 focus:border-[#1D96D3]/70 focus:ring-[#1D96D3]/30"
+                  className="bg-slate-900 border-slate-700 text-white placeholder:text-slate-400 focus:border-[#1D96D3] focus:ring-[#1D96D3]/40"
                 />
               </div>
             )}
 
             {error && (
-              <div className="p-3 bg-red-500/10 border border-red-400/60 rounded-lg text-sm text-red-100">
+              <div className="p-3 bg-red-500/10 border border-red-500/70 rounded-lg text-sm text-red-100">
                 {error}
               </div>
             )}
@@ -177,7 +177,7 @@ export default function AuthPage() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] hover:opacity-90 text-white font-semibold py-2 h-11 transition-smooth"
+              className="w-full bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] hover:opacity-90 text-white font-semibold py-2 h-11"
             >
               {loading ? "جاري المعالجة..." : isLogin ? "دخول" : "إنشاء حساب"}
             </Button>
@@ -187,8 +187,8 @@ export default function AuthPage() {
             <p className="text-slate-100/80 text-sm">
               {isLogin ? "ليس لديك حساب؟" : "هل لديك حساب بالفعل؟"}
               <Link href={isLogin ? "/auth?type=signup" : "/auth?type=login"}>
-                <button className="text-[#1D96D3] hover:text-[#97C945] font-semibold mr-1 transition-smooth">
-                  {isLogin ? "انضم الآن" : "دخول"}
+                <button className="text-[#1D96D3] hover:text-[#97C945] font-semibold mr-1">
+                  {isLogin ? "انضم الآن" : "تسجيل الدخول"}
                 </button>
               </Link>
             </p>

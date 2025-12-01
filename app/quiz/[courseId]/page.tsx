@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { useParams, useRouter } from "next/navigation"
+import { useParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -64,7 +64,6 @@ const QUIZ_DATA: Record<number, Question[]> = {
 
 export default function QuizPage() {
   const params = useParams()
-  const router = useRouter()
   const courseId = Number.parseInt(params.courseId as string)
 
   const [questions, setQuestions] = useState<Question[]>([])
@@ -114,22 +113,22 @@ export default function QuizPage() {
   const isAnswered = answers[currentQuestion] !== -1
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#3F1F8C] via-[#1D96D3] to-[#97C945]">
+    <div className="min-h-screen bg-gradient-to-br from-[#3F1F8C] via-[#1D96D3] to-[#97C945] text-white">
       {/* Header */}
-      <header className="border-b border-white/20 backdrop-blur-xl sticky top-0 z-40 bg-black/30">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+      <header className="border-b border-white/20 backdrop-blur-xl sticky top-0 z-40 bg-[#020617]/90">
+        <div className="max-w-4xl mx-auto px-4 md:px-6 py-2 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="relative w-10 h-10 md:w-14 md:h-14">
+            <div className="relative w-14 h-14 md:w-16 md:h-16">
               <Image
                 src="/apple-icon.png"
                 alt="شعار المنصة التعليمية"
                 fill
                 priority
-                className="object-contain drop-shadow-[0_0_30px_rgba(56,189,248,0.7)]"
+                className="object-contain drop-shadow-[0_0_30px_rgba(56,189,248,0.8)]"
               />
             </div>
             <div>
-              <h1 className="text-xl md:text-2xl font-bold text-white">اختبار المقرر</h1>
+              <h1 className="text-xl md:text-2xl font-bold">اختبار المقرر</h1>
               <p className="text-slate-100/80 text-sm">قيّم فهمك لمحتوى المقرر</p>
             </div>
           </div>
@@ -145,20 +144,20 @@ export default function QuizPage() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-12 text-white">
+      <main className="max-w-4xl mx-auto px-4 md:px-6 py-10">
         {!submitted ? (
           <div className="space-y-8">
             {/* Quiz Header */}
             <div>
               <h1 className="text-3xl font-bold mb-2">اختبار المقرر</h1>
-              <p className="text-slate-100/80">
+              <p className="text-slate-100/85">
                 السؤال {currentQuestion + 1} من {questions.length}
               </p>
             </div>
 
             {/* Progress Bar */}
             <div>
-              <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden">
+              <div className="w-full h-2 bg-white/25 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] transition-all duration-500"
                   style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
@@ -167,8 +166,8 @@ export default function QuizPage() {
             </div>
 
             {/* Question Card */}
-            <Card className="glass-effect border-white/30 bg-black/40 p-8">
-              <h2 className="text-2xl font-bold mb-8 text-white">{question.question}</h2>
+            <Card className="border border-white/25 bg-[#020617] p-6 md:p-8 text-white shadow-xl shadow-black/50">
+              <h2 className="text-2xl font-bold mb-8">{question.question}</h2>
 
               {/* Options */}
               <div className="space-y-4 mb-8">
@@ -179,11 +178,11 @@ export default function QuizPage() {
                     disabled={submitted}
                     className={`w-full p-4 rounded-lg border-2 transition-all text-right font-medium ${
                       answers[currentQuestion] === index
-                        ? "border-[#1D96D3] bg-[#1D96D3]/10 text-white"
-                        : "border-white/30 hover:border-[#1D96D3]/70 hover:bg-white/10"
+                        ? "border-[#1D96D3] bg-[#1D96D3]/15"
+                        : "border-white/30 hover:border-[#1D96D3]/70 hover:bg-white/5"
                     }`}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex.items-center gap-3">
                       <div
                         className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                           answers[currentQuestion] === index
@@ -202,7 +201,7 @@ export default function QuizPage() {
               </div>
 
               {/* Navigation */}
-              <div className="flex gap-4 pt-6 border-t border-white/20">
+              <div className="flex gap-4.pt-6 border-t border-white/20">
                 <Button
                   variant="outline"
                   onClick={handlePreviousQuestion}
@@ -215,7 +214,7 @@ export default function QuizPage() {
                   variant="outline"
                   onClick={handleNextQuestion}
                   disabled={currentQuestion === questions.length - 1}
-                  className="border-white/40 text-white hover:bg.white/10"
+                  className="border-white/40 text-white hover:bg-white/10"
                 >
                   التالي
                 </Button>
@@ -245,13 +244,13 @@ export default function QuizPage() {
               <h1 className="text-4xl font-bold mb-2">
                 {score >= 70 ? "نتيجة ممتازة!" : "حاول مرة أخرى"}
               </h1>
-              <p className="text-slate-100/80 text-lg">
+              <p className="text-slate-100/90 text-lg">
                 حصلت على <span className="text-[#97C945] font-bold">{score}%</span>
               </p>
             </div>
 
             {/* Results Details */}
-            <Card className="glass-effect border-white/30 bg-black/40 p-8 text-white">
+            <Card className="border border-white/25 bg-[#020617] p-6 md:p-8 text-white.shadow-xl shadow-black/50">
               <h2 className="text-2xl font-bold mb-6">إجاباتك</h2>
               <div className="space-y-4">
                 {questions.map((q, index) => (

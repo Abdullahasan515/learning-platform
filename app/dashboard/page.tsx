@@ -28,7 +28,7 @@ const SAMPLE_COURSES: Course[] = [
     progress: 45,
     lessons: 24,
     duration: "12 ساعة",
-    category: "العلوم",
+    category: "الرياضيات",
     rating: 4.8,
     image: "https://images.unsplash.com/photo-1516534775068-bb571a5e1d5b?w=400&h=300&fit=crop",
   },
@@ -99,24 +99,22 @@ export default function DashboardPage() {
   if (!user) return null
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1D96D3] via-[#3F1F8C] to-[#020617]">
+    <div className="min-h-screen bg-gradient-to-br from-[#1D96D3] via-[#3F1F8C] to-[#020617] text-white">
       {/* Header with logo */}
-      <header className="border-b border-white/20 backdrop-blur-xl sticky top-0 z-50 bg-black/30">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <header className="border-b border-white/20 backdrop-blur-xl sticky top-0 z-50 bg-[#020617]/85">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 flex justify-between items-center">
           <div>
-            <div className="flex items-center gap-3 mb-2">
-              <div className="relative w-10 h-10 md:w-16 md:h-16">
+            <div className="flex items-center gap-3 mb-1">
+              <div className="relative w-16 h-16 md:w-20 md:h-20">
                 <Image
                   src="/apple-icon.png"
                   alt="شعار المنصة التعليمية"
                   fill
-                  className="object-contain drop-shadow-[0_0_30px_rgba(56,189,248,0.7)]"
                   priority
+                  className="object-contain drop-shadow-[0_0_30px_rgba(56,189,248,0.8)]"
                 />
               </div>
-              <h1 className="text-xl md:text-2xl font-bold text-white">
-                لوحة التحكم التعليمية
-              </h1>
+              <h1 className="text-xl md:text-2xl font-bold">لوحة التحكم التعليمية</h1>
             </div>
             <p className="text-slate-100/80 text-sm">أهلاً وسهلاً، {user.name || user.email}</p>
           </div>
@@ -132,25 +130,23 @@ export default function DashboardPage() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-12">
+      <main className="max-w-7xl mx-auto px-4 md:px-6 py-10">
         {/* Welcome Section */}
-        <div className="mb-12">
+        <div className="mb-10">
           <h2 className="text-3xl font-bold mb-2 text-[#97C945]">رحلتك الأكاديمية</h2>
-          <p className="text-slate-100/80">
-            استمر في التعلم، تتبع تقدمك، وحقق نجاحك الأكاديمي
-          </p>
+          <p className="text-slate-100/85">استمر في التعلم، تتبع تقدمك، وحقق نجاحك الأكاديمي.</p>
         </div>
 
         {/* Search & Filter */}
         <div className="mb-8">
           <div className="relative">
-            <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-200/70" />
+            <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-200/80" />
             <input
               type="text"
               placeholder="ابحث عن دورة..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-4 pr-12 py-3 bg-black/20 border border-white/30 text-white placeholder:text-slate-300/70 rounded-lg focus:outline-none focus:border-[#1D96D3]/70 focus:ring-2 focus:ring-[#1D96D3]/30 transition-smooth"
+              className="w-full pl-4 pr-12 py-3 bg-[#020617] border border-white/30 rounded-lg text-white placeholder:text-slate-400 focus:outline-none focus:border-[#1D96D3] focus:ring-2 focus:ring-[#1D96D3]/40"
             />
           </div>
         </div>
@@ -159,7 +155,7 @@ export default function DashboardPage() {
         <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
           {filteredCourses.map((course) => (
             <Link key={course.id} href={`/courses/${course.id}`}>
-              <Card className="h-full glass-effect border-white/20 hover:border-[#1D96D3]/70 transition-smooth cursor-pointer group overflow-hidden bg-black/30">
+              <Card className="h-full border border-white/20 bg-[#020617] hover:border-[#1D96D3]/70 transition-smooth cursor-pointer group overflow-hidden shadow-lg shadow-black/40">
                 <div className="w-full h-48 overflow-hidden relative">
                   <img
                     src={course.image || "/placeholder.jpg"}
@@ -175,7 +171,7 @@ export default function DashboardPage() {
                 <div className="p-6 flex flex-col h-full">
                   <div className="mb-4">
                     <p className="text-xs font-medium text-[#97C945] mb-2">{course.category}</p>
-                    <h3 className="text-lg font-semibold group-hover:text-[#1D96D3] transition-smooth text-white">
+                    <h3 className="text-lg font-semibold group-hover:text-[#1D96D3] transition-smooth">
                       {course.title}
                     </h3>
                   </div>
@@ -184,11 +180,11 @@ export default function DashboardPage() {
 
                   {course.progress > 0 && (
                     <div className="mb-4">
-                      <div className="flex justify-between items-center mb-2 text-slate-100/80">
+                      <div className="flex justify-between items-center mb-2 text-slate-100/85">
                         <span className="text-xs font-medium">التقدم</span>
                         <span className="text-xs">{course.progress}%</span>
                       </div>
-                      <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                      <div className="w-full h-2 bg.white/10 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C]"
                           style={{ width: `${course.progress}%` }}
@@ -197,7 +193,7 @@ export default function DashboardPage() {
                     </div>
                   )}
 
-                  <div className="flex items-center justify-between text-sm text-slate-100/80 mt-auto pt-4 border-t border-white/20">
+                  <div className="flex items-center justify-between text-sm text-slate-100/85 mt-auto pt-4 border-t border-white/15">
                     <div className="flex items-center gap-4">
                       <span className="flex items-center gap-1">
                         <Play className="w-4 h-4" />
@@ -221,7 +217,7 @@ export default function DashboardPage() {
 
         {filteredCourses.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-slate-100/80">لم نجد دورات. جرب بحث مختلف.</p>
+            <p className="text-slate-100/85">لم نجد دورات. جرب بحث مختلف.</p>
           </div>
         )}
       </main>

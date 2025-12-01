@@ -68,8 +68,9 @@ export default function AuthPage() {
           }),
         )
       }
+
       window.location.href = "/dashboard"
-    } catch {
+    } catch (err) {
       setError("فشل التحقق. يرجى المحاولة مرة أخرى.")
     } finally {
       setLoading(false)
@@ -77,124 +78,126 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
-      <Card className="w-full max-w-md border border-slate-200 bg-white">
-        <div className="p-8">
-          {/* Brand with big logo only */}
-          <div className="text-center mb-8">
-            <div className="flex flex-col items-center">
-              <div className="relative w-24 h-24 md:w-28 md:h-28 mb-4">
-                <Image
-                  src="/apple-icon.png"
-                  alt="شعار المنصة التعليمية"
-                  fill
-                  priority
-                  className="object-contain"
-                />
+    <div className="min-h-screen flex items-center justify-center px-4 py-6">
+      <div className="max-w-md w-full">
+        <Card className="w-full bg-white/90 border border-slate-200 shadow-lg rounded-2xl">
+          <div className="p-7 md:p-8">
+            {/* Brand (big logo only) */}
+            <div className="text-center mb-7">
+              <div className="flex flex-col items-center">
+                <div className="relative w-24 h-24 md:w-28 md:h-28 mb-4">
+                  <Image
+                    src="/apple-icon.png"
+                    alt="شعار المنصة التعليمية"
+                    fill
+                    priority
+                    className="object-contain drop-shadow-[0_0_28px_rgba(63,31,140,0.6)]"
+                  />
+                </div>
               </div>
+              <p className="text-slate-700 text-sm md:text-base">
+                {isLogin ? "مرحباً بعودتك إلى نظام التعليم الإلكتروني" : "أنشئ حساباً وابدأ رحلتك التعليمية"}
+              </p>
             </div>
-            <p className="text-slate-700 text-sm md:text-base">
-              {isLogin ? "مرحباً بعودتك إلى نظام التعليم الإلكتروني" : "أنشئ حساباً وابدأ رحلتك التعليمية"}
-            </p>
-          </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {!isLogin && (
-              <div className="space-y-2">
-                <label className="text-sm font-medium flex items-center gap-2 text-slate-800">
-                  <User className="w-4 h-4" />
-                  الاسم الكامل
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {!isLogin && (
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium flex items-center gap-2 text-[#3F1F8C]">
+                    <User className="w-4 h-4" />
+                    الاسم الكامل
+                  </label>
+                  <Input
+                    type="text"
+                    placeholder="اسمك"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="bg-white/70 border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-[#1D96D3] focus:ring-[#1D96D3]/40"
+                  />
+                </div>
+              )}
+
+              <div className="space-y-1.5">
+                <label className="text-sm font-medium flex.items-center gap-2 text-[#3F1F8C]">
+                  <Mail className="w-4 h-4" />
+                  البريد الإلكتروني
                 </label>
                 <Input
-                  type="text"
-                  placeholder="اسمك"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="bg-white border-slate-300 text-slate-900 focus:border-[#1D96D3] focus:ring-[#1D96D3]/30"
+                  type="email"
+                  placeholder="your@example.com"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="bg-white/70 border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-[#1D96D3] focus:ring-[#1D96D3]/40"
                 />
               </div>
-            )}
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium flex items-center gap-2 text-slate-800">
-                <Mail className="w-4 h-4" />
-                البريد الإلكتروني
-              </label>
-              <Input
-                type="email"
-                placeholder="your@example.com"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="bg-white border-slate-300 text-slate-900 focus:border-[#1D96D3] focus:ring-[#1D96D3]/30"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium flex items.center gap-2 text-slate-800">
-                <Lock className="w-4 h-4" />
-                كلمة المرور
-              </label>
-              <div className="relative">
-                <Input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
-                  value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="bg-white border-slate-300 text-slate-900 focus:border-[#1D96D3] focus:ring-[#1D96D3]/30 pr-10"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700"
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-            </div>
-
-            {!isLogin && (
-              <div className="space-y-2">
-                <label className="text-sm font-medium flex items-center gap-2 text-slate-800">
+              <div className="space-y-1.5">
+                <label className="text-sm font-medium flex items-center gap-2 text-[#3F1F8C]">
                   <Lock className="w-4 h-4" />
-                  تأكيد كلمة المرور
+                  كلمة المرور
                 </label>
-                <Input
-                  type="password"
-                  placeholder="••••••••"
-                  value={formData.confirmPassword}
-                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  className="bg-white border-slate-300 text-slate-900 focus:border-[#1D96D3] focus:ring-[#1D96D3]/30"
-                />
+                <div className="relative">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    className="bg-white/70 border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-[#1D96D3] focus:ring-[#1D96D3]/40 pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700"
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
               </div>
-            )}
 
-            {error && (
-              <div className="p-3 bg-red-50 border border-red-300 rounded-lg text-sm text-red-700">
-                {error}
-              </div>
-            )}
+              {!isLogin && (
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium flex items-center gap-2 text-[#3F1F8C]">
+                    <Lock className="w-4 h-4" />
+                    تأكيد كلمة المرور
+                  </label>
+                  <Input
+                    type="password"
+                    placeholder="••••••••"
+                    value={formData.confirmPassword}
+                    onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                    className="bg-white/70 border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-[#1D96D3] focus:ring-[#1D96D3]/40"
+                  />
+                </div>
+              )}
 
-            <Button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-[#1D96D3] hover:bg-[#1877a8] text-white font-semibold py-2 h-11"
-            >
-              {loading ? "جاري المعالجة..." : isLogin ? "دخول" : "إنشاء حساب"}
-            </Button>
-          </form>
+              {error && (
+                <div className="p-3 bg-red-50 border border-red-300 rounded-lg text-sm text-red-700">
+                  {error}
+                </div>
+              )}
 
-          <div className="mt-6 text-center">
-            <p className="text-slate-700 text-sm">
-              {isLogin ? "ليس لديك حساب؟" : "هل لديك حساب بالفعل؟"}
-              <Link href={isLogin ? "/auth?type=signup" : "/auth?type=login"}>
-                <button className="text-[#3F1F8C] hover:text-[#1D96D3] font-semibold mr-1">
-                  {isLogin ? "انضم الآن" : "تسجيل الدخول"}
-                </button>
-              </Link>
-            </p>
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-[#3F1F8C] via-[#1D96D3] to-[#97C945] hover:opacity-90 text-white font-semibold py-2 h-11"
+              >
+                {loading ? "جاري المعالجة..." : isLogin ? "دخول" : "إنشاء حساب"}
+              </Button>
+            </form>
+
+            <div className="mt-5 text-center">
+              <p className="text-slate-700 text-sm">
+                {isLogin ? "ليس لديك حساب؟" : "هل لديك حساب بالفعل؟"}
+                <Link href={isLogin ? "/auth?type=signup" : "/auth?type=login"}>
+                  <button className="text-[#1D96D3] hover:text-[#3F1F8C] font-semibold mr-1">
+                    {isLogin ? "انضم الآن" : "تسجيل الدخول"}
+                  </button>
+                </Link>
+              </p>
+            </div>
           </div>
-        </div>
-      </Card>
+        </Card>
+      </div>
     </div>
   )
 }

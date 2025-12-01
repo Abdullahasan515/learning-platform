@@ -38,7 +38,7 @@ const COURSE_DATA: Record<number, CourseDetail> = {
       "تعلم أساسيات الرياضيات التطبيقية مع تطبيقات في الجبر الخطي، حساب التفاضل والتكامل، والمعادلات التفاضلية من خلال دروس مرئية من يوتيوب.",
     progress: 45,
     rating: 4.8,
-    coverImage: "https://images.unsplash.com/photo-1516534775068-bb571a5e1d5b?w=800&h=400&fit=crop",
+    coverImage: "https://th.bing.com/th?&id=OVP.-Vv0AUSNlP_bY0g_BFD_eAHgFo&w=332&h=186&c=7&pid=2.1&rs=1",
     lessons: [
       {
         id: 1,

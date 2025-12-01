@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -79,14 +80,25 @@ export default function AuthPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 via-background to-secondary/5 p-4">
       <Card className="w-full max-w-md glass-effect border-primary/20">
         <div className="p-8">
+          {/* Brand with big logo */}
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-white font-bold text-xl">BU</span>
+            <div className="flex flex-col items-center">
+              <div className="relative w-20 h-20 md:w-28 md:h-28 mb-3">
+                <Image
+                  src="/apple-icon.png"
+                  alt="شعار جامعة الباحة"
+                  fill
+                  priority
+                  className="object-contain drop-shadow-[0_0_30px_rgba(37,99,235,0.55)]"
+                />
+              </div>
+              <div className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
+                جامعة الباحة
+              </div>
             </div>
-            <div className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
-              جامعة الباحة
-            </div>
-            <p className="text-muted-foreground">{isLogin ? "مرحباً بعودتك" : "انضم إلى نظام التعليم"}</p>
+            <p className="text-muted-foreground">
+              {isLogin ? "مرحباً بعودتك إلى نظام التعليم الإلكتروني" : "انضم إلى نظام التعليم الإلكتروني"}
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">

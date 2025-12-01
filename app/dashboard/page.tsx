@@ -99,10 +99,10 @@ export default function DashboardPage() {
   if (!user) return null
 
   return (
-    <div className="min-h-screen">
-      {/* Header with logo (قصير و الشعار أكبر) */}
-      <header className="border-b border-slate-200 bg-white sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 flex justify-between items-center">
+    <div className="min-h-screen bg-gradient-to-br from-[#F5FFF7] via-[#F3F7FF] to-[#F7F3FF]">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-1.5 flex items-center justify-between">
           <div>
             <div className="flex items-center gap-3 mb-1">
               <div className="relative w-16 h-16 md:w-20 md:h-20">
@@ -111,17 +111,19 @@ export default function DashboardPage() {
                   alt="شعار المنصة التعليمية"
                   fill
                   priority
-                  className="object-contain"
+                  className="object-contain drop-shadow-[0_0_22px_rgba(29,150,211,0.5)]"
                 />
               </div>
-              <h1 className="text-xl md:text-2xl font-bold text-slate-900">لوحة التحكم التعليمية</h1>
+              <h1 className="text-lg md:text-2xl font-bold text-slate-900">لوحة التحكم التعليمية</h1>
             </div>
-            <p className="text-slate-600 text-sm">أهلاً وسهلاً، {user.name || user.email}</p>
+            <p className="text-slate-600 text-xs md:text-sm">
+              أهلاً، {user.name || user.email} – استمر في تعلّم دوراتك من يوتيوب
+            </p>
           </div>
           <Button
             variant="outline"
             onClick={handleLogout}
-            className="gap-2 border-slate-300 text-slate-800 hover:bg-slate-100"
+            className="gap-2 bg-white/70 border-slate-300 text-slate-800 hover:bg-slate-100"
           >
             <LogOut className="w-4 h-4" />
             تسجيل خروج
@@ -134,11 +136,13 @@ export default function DashboardPage() {
         {/* Welcome Section */}
         <div className="mb-8">
           <h2 className="text-2xl md:text-3xl font-bold mb-2 text-[#3F1F8C]">رحلتك الأكاديمية</h2>
-          <p className="text-slate-700">استمر في التعلم، تتبع تقدمك، وحقق نجاحك الأكاديمي.</p>
+          <p className="text-slate-700 text-sm md:text-base">
+            تصفّح الدورات، تابع تقدّمك، وارجع لأي درس مرئي بسهولة.
+          </p>
         </div>
 
-        {/* Search & Filter */}
-        <div className="mb-6">
+        {/* Search */}
+        <div className="mb-8">
           <div className="relative">
             <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
             <input
@@ -146,67 +150,63 @@ export default function DashboardPage() {
               placeholder="ابحث عن دورة..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-4 pr-12 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#1D96D3] focus:ring-1 focus:ring-[#1D96D3]"
+              className="w-full pl-4 pr-11 py-3 bg-white/80 border border-slate-200 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#1D96D3] focus:ring-2 focus:ring-[#1D96D3]/20"
             />
           </div>
         </div>
 
         {/* Courses Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6">
           {filteredCourses.map((course) => (
             <Link key={course.id} href={`/courses/${course.id}`}>
-              <Card className="h-full border border-slate-200 bg-white hover:border-[#1D96D3] transition cursor-pointer group overflow-hidden">
+              <Card className="h-full bg-white/80 border border-slate-200 hover:border-[#1D96D3] transition-all cursor-pointer overflow-hidden shadow-md hover:shadow-lg">
                 <div className="w-full h-44 overflow-hidden relative">
                   <img
                     src={course.image || "/placeholder.jpg"}
                     alt={course.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute top-3 right-3 flex items-center gap-1 bg-white/90 px-2 py-1 rounded-full border border-slate-200">
-                    <Star className="w-4 h-4 text-yellow-500" fill="currentColor" />
-                    <span className="text-xs font-semibold text-slate-800">{course.rating}</span>
+                  <div className="absolute top-3 right-3 flex items-center gap-1 bg-slate-900/80 px-2 py-1 rounded-full">
+                    <Star className="w-4 h-4 text-yellow-300" fill="currentColor" />
+                    <span className="text-xs font-semibold text-white">{course.rating}</span>
                   </div>
                 </div>
 
                 <div className="p-5 flex flex-col h-full">
                   <div className="mb-3">
                     <p className="text-xs font-medium text-[#1D96D3] mb-1">{course.category}</p>
-                    <h3 className="text-lg font-semibold group-hover:text-[#3F1F8C] transition">
-                      {course.title}
-                    </h3>
+                    <h3 className="text-md md:text-lg font-semibold text-slate-900">{course.title}</h3>
                   </div>
 
-                  <p className="text-slate-700 text-sm mb-3">الأستاذ/ة: {course.instructor}</p>
+                  <p className="text-slate-600 text-sm mb-3">الأستاذ/ة: {course.instructor}</p>
 
                   {course.progress > 0 && (
                     <div className="mb-3">
-                      <div className="flex justify-between items-center mb-1 text-slate-700">
-                        <span className="text-xs font-medium">التقدم</span>
-                        <span className="text-xs">{course.progress}%</span>
+                      <div className="flex justify-between items-center mb-1 text-slate-700 text-xs">
+                        <span>التقدم</span>
+                        <span>{course.progress}%</span>
                       </div>
                       <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C]"
+                          className="h-full bg-gradient-to-r from-[#3F1F8C] via-[#1D96D3] to-[#97C945]"
                           style={{ width: `${course.progress}%` }}
                         />
                       </div>
                     </div>
                   )}
 
-                  <div className="flex items-center justify-between text-sm text-slate-700 mt-auto pt-3 border-t border-slate-200">
-                    <div className="flex items-center gap-4">
-                      <span className="flex items-center gap-1">
-                        <Play className="w-4 h-4" />
-                        {course.lessons} محاضرة
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {course.duration}
-                      </span>
-                    </div>
+                  <div className="flex items-center justify-between text-xs md:text-sm text-slate-600 mt-auto pt-3 border-t border-slate-100">
+                    <span className="flex items-center gap-1">
+                      <Play className="w-4 h-4" />
+                      {course.lessons} محاضرة
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-4 h-4" />
+                      {course.duration}
+                    </span>
                   </div>
 
-                  <Button className="w-full mt-4 bg-[#1D96D3] hover:bg-[#1877a8] text-white font-semibold">
+                  <Button className="w-full mt-4 bg-gradient-to-r from-[#3F1F8C] via-[#1D96D3] to-[#97C945] text-white hover:opacity-90">
                     {course.progress > 0 ? "استمر" : "ابدأ"} الآن
                   </Button>
                 </div>
@@ -216,7 +216,7 @@ export default function DashboardPage() {
         </div>
 
         {filteredCourses.length === 0 && (
-          <div className="text-center py-12">
+          <div className="text-center py-10">
             <p className="text-slate-600">لم نجد دورات. جرب بحث مختلف.</p>
           </div>
         )}

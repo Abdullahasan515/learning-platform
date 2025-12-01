@@ -72,9 +72,9 @@ export default function AdminPage() {
   if (!user) return null
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#97C945] via-[#1D96D3] to-[#3F1F8C] text-white">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="border-b border-white/20 backdrop-blur-xl sticky top-0 z-50 bg-[#020617]/90">
+      <header className="border-b border-slate-200 bg-white sticky.top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 flex justify-between items-center">
           <div>
             <div className="flex items-center gap-3 mb-1">
@@ -84,19 +84,19 @@ export default function AdminPage() {
                   alt="شعار المنصة التعليمية"
                   fill
                   priority
-                  className="object-contain drop-shadow-[0_0_30px_rgba(56,189,248,0.8)]"
+                  className="object-contain"
                 />
               </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold text-slate-900">
                 لوحة تحكم المدرّس
               </h1>
             </div>
-            <p className="text-slate-100/80 text-sm">إدارة المقررات والدورات التعليمية</p>
+            <p className="text-slate-600 text-sm">إدارة المقررات والدورات التعليمية</p>
           </div>
           <Button
             variant="outline"
             onClick={handleLogout}
-            className="gap-2 bg-transparent border-white/40 text-white hover:bg-white/10"
+            className="gap-2 border-slate-300 text-slate-800 hover:bg-slate-100"
           >
             <LogOut className="w-4 h-4" />
             تسجيل خروج
@@ -105,15 +105,15 @@ export default function AdminPage() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 md:px-6 py-10">
+      <main className="max-w-7xl mx-auto px-4 md:px-6 py-8">
         {/* Create Course Button */}
         <div className="mb-8 flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold">مقرراتك</h2>
-            <p className="text-slate-100/85">أنشئ وادِر مقرراتك الإلكترونية بسهولة</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900">مقرراتك</h2>
+            <p className="text-slate-700">أنشئ وادِر مقرراتك الإلكترونية بسهولة.</p>
           </div>
           <Link href="/admin/courses/new">
-            <Button className="bg-[#97C945] hover:bg-[#7fb436] gap-2 text-white shadow-lg shadow-[#97C945]/40">
+            <Button className="bg-[#97C945] hover:bg-[#7fb436] gap-2 text-white">
               <Plus className="w-4 h-4" />
               مقرر جديد
             </Button>
@@ -137,67 +137,67 @@ export default function AdminPage() {
           ].map((stat, i) => (
             <Card
               key={i}
-              className="border border-white/25 bg-[#020617] p-6 text-white shadow-lg shadow-black/40"
+              className="border border-slate-200 bg-white p-6 text-slate-900"
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-slate-200/80 text-sm mb-1">{stat.label}</p>
+                  <p className="text-slate-600 text-sm mb-1">{stat.label}</p>
                   <p className="text-3xl font-bold">{stat.value}</p>
                 </div>
-                <stat.icon className="w-8 h-8 text-[#1D96D3] opacity-80" />
+                <stat.icon className="w-8 h-8 text-[#1D96D3]" />
               </div>
             </Card>
           ))}
         </div>
 
         {/* Courses Table */}
-        <Card className="border border-white/25 bg-[#020617] overflow-hidden text-white shadow-xl shadow-black/50">
+        <Card className="border border-slate-200 bg-white overflow-hidden text-slate-900">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="border-b border-white/20 bg-white/5">
+              <thead className="border-b border-slate-200 bg-slate-50">
                 <tr>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">المقرر</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">التصنيف</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">عدد الطلاب</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">عدد الدروس</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">الحالة</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">إجراءات</th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold">المقرر</th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold">التصنيف</th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold">عدد الطلاب</th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold">عدد الدروس</th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold">الحالة</th>
+                  <th className="px-6 py-4 text-right text-sm.font-semibold">إجراءات</th>
                 </tr>
               </thead>
               <tbody>
                 {courses.map((course) => (
                   <tr
                     key={course.id}
-                    className="border-b border-white/10 hover:bg-white/5 transition-smooth"
+                    className="border-b border-slate-200 hover:bg-slate-50 transition"
                   >
                     <td className="px-6 py-4">
                       <span className="font-medium">{course.title}</span>
                     </td>
-                    <td className="px-6 py-4 text-slate-100/80">{course.category}</td>
-                    <td className="px-6 py-4 text-slate-100/80">{course.students}</td>
-                    <td className="px-6 py-4 text-slate-100/80">{course.lessons}</td>
+                    <td className="px-6 py-4 text-slate-700">{course.category}</td>
+                    <td className="px-6 py-4 text-slate-700">{course.students}</td>
+                    <td className="px-6 py-4 text-slate-700">{course.lessons}</td>
                     <td className="px-6 py-4">
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-semibold ${
                           course.status === "published"
-                            ? "bg-green-500/20 text-green-300"
-                            : "bg-amber-500/20 text-amber-200"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-amber-100 text-amber-700"
                         }`}
                       >
                         {course.status}
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex gap-2">
+                      <div className="flex gap-2 justify-end">
                         <Link href={`/admin/courses/${course.id}`}>
-                          <Button variant="ghost" size="sm" className="gap-1 text-slate-100">
+                          <Button variant="ghost" size="sm" className="gap-1 text-slate-800">
                             <Edit2 className="w-4 h-4" />
                           </Button>
                         </Link>
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="gap-1 text-red-400 hover:text-red-300"
+                          className="gap-1 text-red-600 hover:text-red-700"
                           onClick={() => handleDeleteCourse(course.id)}
                         >
                           <Trash2 className="w-4 h-4" />

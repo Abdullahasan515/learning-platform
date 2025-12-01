@@ -40,6 +40,21 @@ export default function HomePage() {
         </div>
       </nav>
 
+      {/* ===== Banner Image فوق الفيديو ===== */}
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-0">
+          <div className="relative w-full h-28 sm:h-32 md:h-40 lg:h-48 overflow-hidden">
+            <Image
+              src="/bu-banner.jpg" // ضع الصورة هنا داخل public بهذا الاسم
+              alt="جامعة الباحة - مستقبل واعد"
+              fill
+              priority
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Top Video Section (YouTube) */}
       <section className="border-b border-slate-200 bg-white/80">
         <div className="max-w-5xl mx-auto px-4 md:px-6 py-4">
@@ -81,7 +96,7 @@ export default function HomePage() {
                 سحابي • عصري • متكامل
               </span>
             </h1>
-            <p className="text-base md:text-lg text-slate-700 mb-8 leading-relaxed">
+            <p className="text-base md:text-lg text-slate-700 mb-8.leading-relaxed">
               منصة تعليم إلكتروني سحابية تربطك بدورات مرئية من يوتيوب، محتوى تفاعلي، واختبارات تقيس فهمك
               في كل خطوة، مع واجهة واضحة تعمل بسلاسة على اللابتوب والجوال.
             </p>
@@ -125,7 +140,7 @@ export default function HomePage() {
               </p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-white/80 shadow-md p-5">
-              <h2 className="text-lg font-semibold text-slate-900 mb-3 flex items-center gap-2">
+              <h2 className="text-lg font-semibold text-slate-900.mb-3 flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-[#97C945]" />
                 اختبارات وتتبّع أداء
               </h2>

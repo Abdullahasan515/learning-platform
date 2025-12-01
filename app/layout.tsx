@@ -9,8 +9,7 @@ const geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "نظام التعليم الإلكتروني السحابي",
-  description: "منصة تعليم إلكتروني سحابي للطلاب والطالبات.",
-  generator: "v0.app",
+  description: "منصة تعليم إلكتروني سحابية للطلاب والطالبات.",
   icons: {
     icon: [
       {
@@ -37,11 +36,7 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl">
       <body
-        className={
-          `${geist.className} antialiased ` +
-          // الخلفية الأساسية المتدرجة (الأخضر + الأزرق الفاتح + البنفسجي الغامق)
-          "bg-gradient-to-br from-[#97C945] via-[#1D96D3] to-[#3F1F8C]"
-        }
+        className={`${geist.className} antialiased bg-gradient-to-br from-[#F5FFF7] via-[#F3F7FF] to-[#F7F3FF]`}
       >
         {children}
         <Analytics />

@@ -36,7 +36,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`${geist.className} antialiased bg-white text-slate-900`}>
+      <body
+        className={
+          `${geist.className} antialiased ` +
+          // الخلفية الأساسية المتدرجة (الأخضر + الأزرق الفاتح + البنفسجي الغامق)
+          "bg-gradient-to-br from-[#97C945] via-[#1D96D3] to-[#3F1F8C]"
+        }
+      >
         {children}
         <Analytics />
       </body>

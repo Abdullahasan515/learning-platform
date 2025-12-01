@@ -8,8 +8,8 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "جامعة الباحة - نظام التعليم الإلكتروني",
-  description: "منصة التعليم الإلكتروني الحديثة لجامعة الباحة - تعلم متقدم وتفاعلي",
+  title: "نظام التعليم الإلكتروني السحابي",
+  description: "منصة تعليم إلكتروني عصرية للطلاب والطالبات على السحابة.",
   generator: "v0.app",
   icons: {
     icon: [
@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`font-sans antialiased`}>
+      <body className={`${_geist.className} antialiased`}>
         {children}
         <Analytics />
       </body>

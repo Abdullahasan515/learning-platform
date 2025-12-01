@@ -35,7 +35,7 @@ const COURSE_DATA: Record<number, CourseDetail> = {
     title: "مقدمة في الرياضيات التطبيقية",
     instructor: "أ.د محمد السالمي",
     description:
-      "تعلم أساسيات الرياضيات التطبيقية مع تطبيقات عملية. الجبر الخطي، حساب التفاضل والتكامل، والمعادلات التفاضلية مع أمثلة من الحياة الواقعية.",
+      "تعلم أساسيات الرياضيات التطبيقية مع تطبيقات عملية. الجبر الخطي، حساب التفاضل والتكامل، والمعادلات التفاضلية مع أمثلة واقعية.",
     progress: 45,
     rating: 4.8,
     coverImage: "https://images.unsplash.com/photo-1516534775068-bb571a5e1d5b?w=800&h=400&fit=crop",
@@ -98,7 +98,7 @@ const COURSE_DATA: Record<number, CourseDetail> = {
     title: "تقنيات البرمجة المتقدمة",
     instructor: "أ.د فاطمة الحارثي",
     description:
-      "تعمق في مفاهيم البرمجة المتقدمة مع التركيز على Design Patterns والتطبيقات الموزعة. تعلم أفضل الممارسات في كتابة أكواد احترافية وقابلة للصيانة.",
+      "تعمق في مفاهيم البرمجة المتقدمة مع التركيز على Design Patterns والتطبيقات الموزعة، وكتابة أكواد احترافية قابلة للصيانة.",
     progress: 20,
     rating: 4.9,
     coverImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=400&fit=crop",
@@ -167,27 +167,30 @@ export default function CoursePage() {
   const completedLessons = course.lessons.filter((l) => l.completed).length
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1D96D3] via-[#3F1F8C] to-[#020617] text-white">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="border-b border-white/20 backdrop-blur-xl sticky top-0 z-40 bg-[#020617]/90">
+      <header className="border-b border-slate-200 bg-white sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="relative w-14 h-14 md:w-16 md:h-16">
+            <div className="relative w-16 h-16 md:w-20 md:h-20">
               <Image
                 src="/apple-icon.png"
                 alt="شعار المنصة التعليمية"
                 fill
                 priority
-                className="object-contain drop-shadow-[0_0_30px_rgba(56,189,248,0.8)]"
+                className="object-contain"
               />
             </div>
             <div>
-              <h1 className="text-xl md:text-2xl font-bold">{course.title}</h1>
-              <p className="text-slate-100/80 text-sm">{course.instructor}</p>
+              <h1 className="text-xl md:text-2xl font-bold text-slate-900">{course.title}</h1>
+              <p className="text-slate-600 text-sm">{course.instructor}</p>
             </div>
           </div>
           <Link href="/dashboard">
-            <Button variant="ghost" className="gap-2 text-slate-100 hover:text-white hover:bg-white/10">
+            <Button
+              variant="ghost"
+              className="gap-2 text-slate-800 hover:bg-slate-100"
+            >
               <ArrowLeft className="w-4 h-4" />
               العودة للدورات
             </Button>
@@ -200,9 +203,9 @@ export default function CoursePage() {
           {/* Lesson Content - Main */}
           <div className="lg:col-span-2">
             {selectedLesson && (
-              <Card className="border border-white/25 bg-[#020617] p-6 md:p-8 text.white shadow-xl shadow-black/50">
+              <Card className="border border-slate-200 bg-white p-6 md:p-8 text-slate-900">
                 {/* Video/Content Area */}
-                <div className="bg-white/5 rounded-lg mb-8 flex flex-col items-center justify-center overflow-hidden">
+                <div className="rounded-lg mb-8 overflow-hidden border border-slate-200 bg-black">
                   {selectedLesson.type === "video" && selectedLesson.videoUrl ? (
                     <iframe
                       width="100%"
@@ -212,56 +215,55 @@ export default function CoursePage() {
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
-                      className="rounded-lg"
                     />
                   ) : selectedLesson.type === "video" && selectedLesson.image ? (
                     <div className="w-full">
                       <img
                         src={selectedLesson.image || "/placeholder.svg"}
                         alt={selectedLesson.title}
-                        className="w-full h-96 object-cover rounded-lg"
+                        className="w-full h-80 object-cover"
                       />
                     </div>
                   ) : selectedLesson.type === "quiz" ? (
-                    <div className="p-12 flex flex-col items-center justify-center min-h-[24rem]">
-                      <Award className="w-16 h-16 text-[#97C945] mb-4" />
-                      <p className="text-slate-100/80">اختبار: {selectedLesson.title}</p>
+                    <div className="p-10 flex flex-col items-center justify-center min-h-[18rem] bg-slate-50">
+                      <Award className="w-16 h-16 text-[#3F1F8C] mb-4" />
+                      <p className="text-slate-700">اختبار: {selectedLesson.title}</p>
                     </div>
                   ) : (
-                    <div className="p-12 flex flex-col items-center justify-center min-h-[24rem]">
+                    <div className="p-10 flex flex-col items-center justify-center min-h-[18rem] bg-slate-50">
                       <BookOpen className="w-16 h-16 text-[#1D96D3] mb-4" />
-                      <p className="text-slate-100/80">محاضرة: {selectedLesson.title}</p>
+                      <p className="text-slate-700">محاضرة: {selectedLesson.title}</p>
                     </div>
                   )}
                 </div>
 
                 {/* Lesson Title & Meta */}
                 <div className="mb-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold text-white">{selectedLesson.title}</h2>
+                  <div className="flex items-center justify-between mb-3">
+                    <h2 className="text-2xl font-bold text-slate-900">{selectedLesson.title}</h2>
                     {selectedLesson.completed && (
-                      <div className="flex items-center gap-2 bg-green-500/20 px-3 py-1 rounded-full">
-                        <CheckCircle2 className="w-4 h-4 text-green-300" />
-                        <span className="text-sm font-semibold text-green-200">مكتمل</span>
+                      <div className="flex items-center gap-2 bg-green-100 px-3 py-1 rounded-full">
+                        <CheckCircle2 className="w-4 h-4 text-green-700" />
+                        <span className="text-sm font-semibold text-green-700">مكتمل</span>
                       </div>
                     )}
                   </div>
-                  <div className="flex items-center gap-4 text-slate-100/85">
+                  <div className="flex.items-center gap-4 text-slate-700">
                     <span className="flex items-center gap-1">
                       <Clock className="w-4 h-4" />
                       {selectedLesson.duration}
                     </span>
-                    <span className="capitalize px-3 py-1 bg-white/10 rounded-full text-sm font-medium">
+                    <span className="px-3 py-1 bg-slate-100 rounded-full text-sm font-medium">
                       {selectedLesson.type === "video" ? "فيديو" : selectedLesson.type === "quiz" ? "اختبار" : "نص"}
                     </span>
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-slate-100/85 mb-8">{course.description}</p>
+                <p className="text-slate-700 mb-8">{course.description}</p>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4 pt-6 border-t border-white/20">
+                <div className="flex gap-4 pt-6 border-t border-slate-200">
                   {!selectedLesson.completed && (
                     <Button className="bg-[#97C945] hover:bg-[#7fb436] gap-2 text-white">
                       <CheckCircle2 className="w-4 h-4" />
@@ -269,7 +271,7 @@ export default function CoursePage() {
                     </Button>
                   )}
                   <Link href={`/quiz/${course.id}`}>
-                    <Button variant="outline" className="border-white/40 text-white hover:bg-white/10">
+                    <Button variant="outline" className="border-slate-300 text-slate-800 hover:bg-slate-100">
                       الاختبار
                     </Button>
                   </Link>
@@ -280,48 +282,48 @@ export default function CoursePage() {
 
           {/* Sidebar - Lesson List */}
           <div>
-            <Card className="border border.white/25 bg-[#020617] p-6 sticky top-24 text-white shadow-lg shadow-black/50">
+            <Card className="border border-slate-200 bg-white p-6 sticky top-24 text-slate-900">
               {/* Progress */}
               <div className="mb-6">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="font-semibold">التقدم</h3>
-                  <span className="text-sm font-bold text-[#97C945]">
+                  <span className="text-sm font-bold text-[#3F1F8C]">
                     {Math.round((completedLessons / course.lessons.length) * 100)}%
                   </span>
                 </div>
-                <div className="w-full h-3 bg-white/10 rounded-full overflow-hidden">
+                <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] transition-all duration-500"
+                    className="h-full bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C]"
                     style={{ width: `${(completedLessons / course.lessons.length) * 100}%` }}
                   />
                 </div>
-                <p className="text-xs text-slate-100/80 mt-2">
+                <p className="text-xs text-slate-600 mt-2">
                   {completedLessons} من {course.lessons.length} محاضرة مكتملة
                 </p>
               </div>
 
               {/* Lessons List */}
               <div className="space-y-2">
-                <h3 className="font-semibold mb-4">المحاضرات</h3>
+                <h3 className="font-semibold mb-3">المحاضرات</h3>
                 {course.lessons.map((lesson) => (
                   <button
                     key={lesson.id}
                     onClick={() => setSelectedLesson(lesson)}
                     className={`w-full text-right p-3 rounded-lg transition-all ${
                       selectedLesson?.id === lesson.id
-                        ? "bg-white/10 border border-[#1D96D3]/70"
-                        : "hover:bg-white/5 border border-transparent"
+                        ? "bg-slate-100 border border-[#1D96D3]"
+                        : "hover:bg-slate-50 border border-transparent"
                     }`}
                   >
                     <div className="flex items-start gap-2">
                       {lesson.completed ? (
-                        <CheckCircle2 className="w-5 h-5 text-green-300 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
                       ) : (
-                        <div className="w-5 h-5 rounded-full border-2 border-slate-200/70 flex-shrink-0 mt-0.5" />
+                        <div className="w-5 h-5 rounded-full border-2 border-slate-300 flex-shrink-0 mt-0.5" />
                       )}
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium truncate">{lesson.title}</p>
-                        <p className="text-xs text-slate-200/80">{lesson.duration}</p>
+                        <p className="text-xs text-slate-600">{lesson.duration}</p>
                       </div>
                     </div>
                   </button>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -167,19 +168,32 @@ export default function CoursePage() {
   const completedLessons = course.lessons.filter((l) => l.completed).length
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-background">
+    <div className="min-h-screen bg-gradient-to-br from-[#1D96D3] via-[#3F1F8C] to-[#020617]">
       {/* Header */}
-      <header className="border-b border-border/50 backdrop-blur-xl sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <Link href="/dashboard">
-            <Button variant="ghost" className="gap-2 mb-4">
-              <ArrowLeft className="w-4 h-4" />
-              العودة للدورات
-            </Button>
-          </Link>
-          <div>
-            <h1 className="text-2xl font-bold">{course.title}</h1>
-            <p className="text-muted-foreground">{course.instructor}</p>
+      <header className="border-b border-white/20 backdrop-blur-xl sticky top-0 z-40 bg-black/30">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-3">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="relative w-10 h-10 md:w-14 md:h-14">
+                <Image
+                  src="/apple-icon.png"
+                  alt="شعار المنصة التعليمية"
+                  fill
+                  priority
+                  className="object-contain drop-shadow-[0_0_30px_rgba(56,189,248,0.7)]"
+                />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-white">{course.title}</h1>
+                <p className="text-slate-100/80 text-sm">{course.instructor}</p>
+              </div>
+            </div>
+            <Link href="/dashboard">
+              <Button variant="ghost" className="gap-2 text-slate-100 hover:text-white">
+                <ArrowLeft className="w-4 h-4" />
+                العودة للدورات
+              </Button>
+            </Link>
           </div>
         </div>
       </header>
@@ -189,9 +203,9 @@ export default function CoursePage() {
           {/* Lesson Content - Main */}
           <div className="lg:col-span-2">
             {selectedLesson && (
-              <Card className="glass-effect border-border/50 p-8">
+              <Card className="glass-effect border-white/30 bg-black/40 p-8 text-white">
                 {/* Video/Content Area */}
-                <div className="bg-muted/30 rounded-lg mb-8 flex flex-col items-center justify-center overflow-hidden">
+                <div className="bg-white/5 rounded-lg mb-8 flex flex-col items-center justify-center overflow-hidden">
                   {selectedLesson.type === "video" && selectedLesson.videoUrl ? (
                     <iframe
                       width="100%"
@@ -213,13 +227,13 @@ export default function CoursePage() {
                     </div>
                   ) : selectedLesson.type === "quiz" ? (
                     <div className="p-12 flex flex-col items-center justify-center min-h-96">
-                      <Award className="w-16 h-16 text-accent mb-4" />
-                      <p className="text-muted-foreground">اختبار: {selectedLesson.title}</p>
+                      <Award className="w-16 h-16 text-[#97C945] mb-4" />
+                      <p className="text-slate-100/80">اختبار: {selectedLesson.title}</p>
                     </div>
                   ) : (
                     <div className="p-12 flex flex-col items-center justify-center min-h-96">
-                      <BookOpen className="w-16 h-16 text-primary mb-4" />
-                      <p className="text-muted-foreground">محاضرة: {selectedLesson.title}</p>
+                      <BookOpen className="w-16 h-16 text-[#1D96D3] mb-4" />
+                      <p className="text-slate-100/80">محاضرة: {selectedLesson.title}</p>
                     </div>
                   )}
                 </div>
@@ -227,38 +241,40 @@ export default function CoursePage() {
                 {/* Lesson Title & Meta */}
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold">{selectedLesson.title}</h2>
+                    <h2 className="text-2xl font-bold text-white">{selectedLesson.title}</h2>
                     {selectedLesson.completed && (
                       <div className="flex items-center gap-2 bg-green-500/20 px-3 py-1 rounded-full">
-                        <CheckCircle2 className="w-4 h-4 text-green-600" />
-                        <span className="text-sm font-semibold text-green-600">مكتمل</span>
+                        <CheckCircle2 className="w-4 h-4 text-green-300" />
+                        <span className="text-sm font-semibold text-green-200">مكتمل</span>
                       </div>
                     )}
                   </div>
-                  <div className="flex items-center gap-4 text-muted-foreground">
+                  <div className="flex items-center gap-4 text-slate-100/80">
                     <span className="flex items-center gap-1">
                       <Clock className="w-4 h-4" />
                       {selectedLesson.duration}
                     </span>
-                    <span className="capitalize px-3 py-1 bg-primary/10 rounded-full text-primary text-sm font-medium">
+                    <span className="capitalize px-3 py-1 bg-white/10 rounded-full text-sm font-medium">
                       {selectedLesson.type === "video" ? "فيديو" : selectedLesson.type === "quiz" ? "اختبار" : "نص"}
                     </span>
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-muted-foreground mb-8">{course.description}</p>
+                <p className="text-slate-100/80 mb-8">{course.description}</p>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4 pt-6 border-t border-border/50">
+                <div className="flex gap-4 pt-6 border-t border-white/20">
                   {!selectedLesson.completed && (
-                    <Button className="bg-primary hover:bg-primary/90 gap-2">
+                    <Button className="bg-[#97C945] hover:bg-[#7fb436] gap-2 text-white">
                       <CheckCircle2 className="w-4 h-4" />
                       تعليم كمكتمل
                     </Button>
                   )}
                   <Link href={`/quiz/${course.id}`}>
-                    <Button variant="outline">الاختبار</Button>
+                    <Button variant="outline" className="border-white/40 text-white hover:bg-white/10">
+                      الاختبار
+                    </Button>
                   </Link>
                 </div>
               </Card>
@@ -267,22 +283,22 @@ export default function CoursePage() {
 
           {/* Sidebar - Lesson List */}
           <div>
-            <Card className="glass-effect border-border/50 p-6 sticky top-24">
+            <Card className="glass-effect border-white/30 bg-black/40 p-6 sticky top-24 text-white">
               {/* Progress */}
               <div className="mb-6">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="font-semibold">التقدم</h3>
-                  <span className="text-sm font-bold text-primary">
+                  <span className="text-sm font-bold text-[#97C945]">
                     {Math.round((completedLessons / course.lessons.length) * 100)}%
                   </span>
                 </div>
-                <div className="w-full h-3 bg-muted rounded-full overflow-hidden">
+                <div className="w-full h-3 bg-white/10 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-500"
+                    className="h-full bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] transition-all duration-500"
                     style={{ width: `${(completedLessons / course.lessons.length) * 100}%` }}
                   />
                 </div>
-                <p className="text-xs text-muted-foreground mt-2">
+                <p className="text-xs text-slate-100/80 mt-2">
                   {completedLessons} من {course.lessons.length} محاضرة مكتملة
                 </p>
               </div>
@@ -296,19 +312,19 @@ export default function CoursePage() {
                     onClick={() => setSelectedLesson(lesson)}
                     className={`w-full text-right p-3 rounded-lg transition-all ${
                       selectedLesson?.id === lesson.id
-                        ? "bg-primary/20 border border-primary/50"
-                        : "hover:bg-muted/50 border border-transparent"
+                        ? "bg-white/10 border border-[#1D96D3]/70"
+                        : "hover:bg-white/5 border border-transparent"
                     }`}
                   >
                     <div className="flex items-start gap-2">
                       {lesson.completed ? (
-                        <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-5 h-5 text-green-300 flex-shrink-0 mt-0.5" />
                       ) : (
-                        <div className="w-5 h-5 rounded-full border-2 border-muted-foreground flex-shrink-0 mt-0.5" />
+                        <div className="w-5 h-5 rounded-full border-2 border-slate-200/70 flex-shrink-0 mt-0.5" />
                       )}
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium truncate">{lesson.title}</p>
-                        <p className="text-xs text-muted-foreground">{lesson.duration}</p>
+                        <p className="text-xs text-slate-200/80">{lesson.duration}</p>
                       </div>
                     </div>
                   </button>

@@ -113,7 +113,7 @@ export default function QuizPage() {
   const isAnswered = answers[currentQuestion] !== -1
 
   return (
-    <div className="min-h-screen bg-white">
+  <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="border-b border-slate-200 bg-white sticky top-0 z-40">
         <div className="max-w-4xl mx-auto px-4 md:px-6 py-2 flex items-center justify-between gap-4">

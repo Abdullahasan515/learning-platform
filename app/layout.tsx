@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`${_geist.className} antialiased`}>
+      <body className={`${_geist.className} antialiased bg-[#020617]`}>
         {children}
         <Analytics />
       </body>

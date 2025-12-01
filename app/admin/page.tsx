@@ -72,7 +72,7 @@ export default function AdminPage() {
   if (!user) return null
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       {/* Header */}
       <header className="border-b border-slate-200 bg-white sticky.top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 flex justify-between items-center">

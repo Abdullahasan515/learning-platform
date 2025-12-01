@@ -1,216 +1,152 @@
-"use client"
-
-import { useState, useEffect } from "react"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { ArrowLeft, BookOpen, Users, TrendingUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { LogOut, Plus, Edit2, Trash2, BookOpen, Users } from "lucide-react"
 
-interface AdminCourse {
-  id: number
-  title: string
-  category: string
-  students: number
-  lessons: number
-  status: "draft" | "published"
-}
-
-const ADMIN_COURSES: AdminCourse[] = [
-  {
-    id: 1,
-    title: "Web Development Fundamentals",
-    category: "Programming",
-    students: 234,
-    lessons: 24,
-    status: "published",
-  },
-  {
-    id: 2,
-    title: "Advanced TypeScript",
-    category: "Programming",
-    students: 156,
-    lessons: 18,
-    status: "published",
-  },
-  {
-    id: 3,
-    title: "UI/UX Design Basics",
-    category: "Design",
-    students: 0,
-    lessons: 15,
-    status: "draft",
-  },
-]
-
-export default function AdminPage() {
-  const router = useRouter()
-  const [courses, setCourses] = useState(ADMIN_COURSES)
-  const [user, setUser] = useState<any>(null)
-
-  useEffect(() => {
-    const userData = localStorage.getItem("user")
-    if (!userData) {
-      router.push("/auth")
-      return
-    }
-    setUser(JSON.parse(userData))
-  }, [router])
-
-  const handleLogout = () => {
-    localStorage.removeItem("user")
-    router.push("/")
-  }
-
-  const handleDeleteCourse = (id: number) => {
-    if (confirm("Are you sure you want to delete this course?")) {
-      setCourses(courses.filter((c) => c.id !== id))
-    }
-  }
-
-  if (!user) return null
-
+export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#97C945] via-[#1D96D3] to-[#3F1F8C]">
-      {/* Header */}
-      <header className="border-b border-white/20 backdrop-blur-xl sticky top-0 z-50 bg-black/30">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div>
-            <div className="flex items-center gap-3 mb-1">
-              <div className="relative w-10 h-10 md:w-14 md:h-14">
+    <div className="min-h-screen bg-gradient-to-br from-[#97C945] via-[#1D96D3] to-[#3F1F8C] text-white">
+      {/* Navigation */}
+      <nav className="border-b border-white/20 backdrop-blur-xl sticky top-0 z-50 bg-[#020617]/80">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 flex justify-between items-center">
+          {/* Brand with logo */}
+          <div className="flex items-center gap-4">
+            <div className="relative w-20 h-20 md:w-24 md:h-24">
+              <Image
+                src="/apple-icon.png"
+                alt="شعار المنصة التعليمية"
+                fill
+                priority
+                className="object-contain drop-shadow-[0_0_35px_rgba(15,23,42,0.9)]"
+              />
+            </div>
+            <span className="hidden sm:inline text-xs md:text-sm text-slate-100/80">
+              نظام التعليم الإلكتروني السحابي
+            </span>
+          </div>
+          <div className="flex gap-3">
+            <Link href="/auth?type=login">
+              <Button variant="outline" className="border-white/60 text-white hover:bg-white/10">
+                دخول
+              </Button>
+            </Link>
+            <Link href="/auth?type=signup">
+              <Button className="bg-[#97C945] hover:bg-[#7fb436] text-white shadow-lg shadow-[#97C945]/40">
+                ابدأ الآن
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </nav>
+
+      {/* Top Video Section (YouTube) */}
+      <section className="border-b border-white/15 bg-[#020617]/80">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 py-6">
+          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-black/60">
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/IDIxljawU0Q?autoplay=1&mute=1&rel=0&modestbranding=1"
+              title="جامعة الباحة"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Hero Section */}
+      <section className="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-20">
+        <div className="grid md:grid-cols-2 gap-10 items-center">
+          {/* Logo highlight */}
+          <div className="order-2 md:order-1">
+            <div className="rounded-2xl p-8 h-64 md:h-80 flex items-center justify-center overflow-hidden border border-white/20 bg-[#020617] shadow-xl shadow-black/50">
+              <div className="relative w-full h-full max-w-md mx-auto">
                 <Image
                   src="/apple-icon.png"
                   alt="شعار المنصة التعليمية"
                   fill
                   priority
-                  className="object-contain drop-shadow-[0_0_30px_rgba(56,189,248,0.7)]"
+                  className="object-contain drop-shadow-[0_0_45px_rgba(56,189,248,0.8)]"
                 />
               </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] bg-clip-text text-transparent">
-                لوحة تحكم المدرّس
-              </h1>
             </div>
-            <p className="text-slate-100/80 text-sm">إدارة المقررات والدورات التعليمية</p>
           </div>
-          <Button
-            variant="outline"
-            onClick={handleLogout}
-            className="gap-2 bg-transparent border-white/40 text-white hover:bg-white/10"
-          >
-            <LogOut className="w-4 h-4" />
-            تسجيل خروج
-          </Button>
-        </div>
-      </header>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-12 text-white">
-        {/* Create Course Button */}
-        <div className="mb-8 flex justify-between items-center">
-          <div>
-            <h2 className="text-3xl font-bold">مقرراتك</h2>
-            <p className="text-slate-100/80">أنشئ وادِر مقرراتك الإلكترونية بسهولة</p>
+          <div className="order-1 md:order-2">
+            <h1 className="text-balance mb-6 text-3xl md:text-5xl font-bold leading-tight">
+              نظام تعليم إلكتروني
+              <span className="block text-[#97C945] mt-2">سحابي، عصري، ومتخصص</span>
+            </h1>
+            <p className="text-lg md:text-xl text-slate-100/90 mb-8 leading-relaxed">
+              محاضرات تفاعلية، محتوى مرئي من يوتيوب، واختبارات تقيس فهمك في كل مرحلة، في تجربة
+              موحّدة سهلة للطلاب والطالبات.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/auth?type=signup">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto bg-[#97C945] hover:bg-[#7fb436] text-white shadow-lg shadow-[#97C945]/40"
+                >
+                  ابدأ التعلم الآن
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                </Button>
+              </Link>
+              <Link href="/auth?type=login">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto border-white/70 text-white hover:bg-white/10"
+                >
+                  تسجيل دخول
+                </Button>
+              </Link>
+            </div>
           </div>
-          <Link href="/admin/courses/new">
-            <Button className="bg-[#97C945] hover:bg-[#7fb436] gap-2 text-white shadow-lg shadow-[#97C945]/40">
-              <Plus className="w-4 h-4" />
-              مقرر جديد
-            </Button>
-          </Link>
         </div>
+      </section>
 
-        {/* Stats Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+      {/* Features Section */}
+      <section className="max-w-7xl mx-auto px-4 md:px-6 pb-16 md:pb-20">
+        <h2 className="text-center mb-12 md:mb-16 text-2xl md:text-3xl font-bold text-white">
+          ماذا يقدّم لك النظام؟
+        </h2>
+        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {[
-            { label: "إجمالي المقررات", value: courses.length, icon: BookOpen },
             {
-              label: "إجمالي الطلاب",
-              value: courses.reduce((acc, c) => acc + c.students, 0),
-              icon: Users,
-            },
-            {
-              label: "المنشورة",
-              value: courses.filter((c) => c.status === "published").length,
               icon: BookOpen,
+              title: "محتوى مرئي من يوتيوب",
+              desc: "محاضرات ودورات منتقاة من قنوات تعليمية مميزة.",
             },
-          ].map((stat, i) => (
-            <Card
+            {
+              icon: Users,
+              title: "تجربة مخصصة",
+              desc: "تتبع التقدم لكل طالب مع واجهة بسيطة وواضحة.",
+            },
+            {
+              icon: TrendingUp,
+              title: "اختبارات وتقييم",
+              desc: "أسئلة تفاعلية لقياس مستوى الفهم بعد كل وحدة.",
+            },
+          ].map((feature, i) => (
+            <div
               key={i}
-              className="glass-effect border-white/30 bg-black/30 p-6 text-white"
+              className="rounded-xl p-7 text-center border border-white/20 bg-[#020617] shadow-lg shadow-black/40"
             >
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-slate-200/80 text-sm mb-1">{stat.label}</p>
-                  <p className="text-3xl font-bold">{stat.value}</p>
-                </div>
-                <stat.icon className="w-8 h-8 text-[#1D96D3] opacity-80" />
-              </div>
-            </Card>
+              <feature.icon className="w-12 h-12 text-[#1D96D3] mx-auto mb-4" />
+              <h3 className="text-xl mb-2 font-semibold text-white">{feature.title}</h3>
+              <p className="text-slate-100/80 text-sm md:text-base">{feature.desc}</p>
+            </div>
           ))}
         </div>
+      </section>
 
-        {/* Courses Table */}
-        <Card className="glass-effect border-white/30 bg-black/40 overflow-hidden text-white">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="border-b border-white/20 bg-white/5">
-                <tr>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">المقرر</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">التصنيف</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">عدد الطلاب</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">عدد الدروس</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">الحالة</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">إجراءات</th>
-                </tr>
-              </thead>
-              <tbody>
-                {courses.map((course) => (
-                  <tr
-                    key={course.id}
-                    className="border-b border-white/10 hover:bg-white/5 transition-smooth"
-                  >
-                    <td className="px-6 py-4">
-                      <span className="font-medium">{course.title}</span>
-                    </td>
-                    <td className="px-6 py-4 text-slate-100/80">{course.category}</td>
-                    <td className="px-6 py-4 text-slate-100/80">{course.students}</td>
-                    <td className="px-6 py-4 text-slate-100/80">{course.lessons}</td>
-                    <td className="px-6 py-4">
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                          course.status === "published"
-                            ? "bg-green-500/20 text-green-300"
-                            : "bg-amber-500/20 text-amber-200"
-                        }`}
-                      >
-                        {course.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex gap-2">
-                        <Link href={`/admin/courses/${course.id}`}>
-                          <Button variant="ghost" size="sm" className="gap-1 text-slate-100">
-                            <Edit2 className="w-4 h-4" />
-                          </Button>
-                        </Link>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="gap-1 text-red-400 hover:text-red-300"
-                          onClick={() => handleDeleteCourse(course.id)}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Card>
-      </main>
+      {/* Footer */}
+      <footer className="border-t border-white/20 py-6 px-4 md:px-6 bg-[#020617]/90">
+        <div className="max-w-7xl mx-auto text-center text-slate-200/80 text-sm">
+          <p>&copy; 2025 نظام التعليم الإلكتروني السحابي. جميع الحقوق محفوظة.</p>
+        </div>
+      </footer>
     </div>
   )
 }

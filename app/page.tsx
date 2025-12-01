@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+   <div className="min-h-screen">
       {/* Navigation */}
       <nav className="border-b border-slate-200 bg-white sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 flex justify-between items-center">

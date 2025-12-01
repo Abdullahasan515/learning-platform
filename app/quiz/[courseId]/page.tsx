@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -111,46 +112,63 @@ export default function QuizPage() {
 
   const question = questions[currentQuestion]
   const isAnswered = answers[currentQuestion] !== -1
-  const isCorrect = answers[currentQuestion] === question.correctAnswer
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-background">
+    <div className="min-h-screen bg-gradient-to-br from-[#3F1F8C] via-[#1D96D3] to-[#97C945]">
       {/* Header */}
-      <header className="border-b border-border/50 backdrop-blur-xl sticky top-0 z-40">
-        <div className="max-w-4xl mx-auto px-6 py-4">
+      <header className="border-b border-white/20 backdrop-blur-xl sticky top-0 z-40 bg-black/30">
+        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="relative w-10 h-10 md:w-14 md:h-14">
+              <Image
+                src="/apple-icon.png"
+                alt="شعار المنصة التعليمية"
+                fill
+                priority
+                className="object-contain drop-shadow-[0_0_30px_rgba(56,189,248,0.7)]"
+              />
+            </div>
+            <div>
+              <h1 className="text-xl md:text-2xl font-bold text-white">اختبار المقرر</h1>
+              <p className="text-slate-100/80 text-sm">قيّم فهمك لمحتوى المقرر</p>
+            </div>
+          </div>
           <Link href="/dashboard">
-            <Button variant="ghost" className="gap-2">
+            <Button
+              variant="ghost"
+              className="gap-2 text-slate-100 hover:text-white hover:bg-white/10"
+            >
               <ArrowLeft className="w-4 h-4" />
-              Back to Dashboard
+              الرجوع للوحة التحكم
             </Button>
           </Link>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-12">
+      <main className="max-w-4xl mx-auto px-6 py-12 text-white">
         {!submitted ? (
           <div className="space-y-8">
             {/* Quiz Header */}
             <div>
-              <h1 className="text-3xl font-bold mb-2">Course Quiz</h1>
-              <p className="text-muted-foreground">
-                Question {currentQuestion + 1} of {questions.length}
+              <h1 className="text-3xl font-bold mb-2">اختبار المقرر</h1>
+              <p className="text-slate-100/80">
+                السؤال {currentQuestion + 1} من {questions.length}
               </p>
             </div>
 
             {/* Progress Bar */}
             <div>
-              <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
+              <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] transition-all duration-500"
                   style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
                 />
               </div>
             </div>
 
             {/* Question Card */}
-            <Card className="glass-effect border-border/50 p-8">
-              <h2 className="text-2xl font-bold mb-8">{question.question}</h2>
+            <Card className="glass-effect border-white/30 bg-black/40 p-8">
+              <h2 className="text-2xl font-bold mb-8 text-white">{question.question}</h2>
 
               {/* Options */}
               <div className="space-y-4 mb-8">
@@ -159,47 +177,55 @@ export default function QuizPage() {
                     key={index}
                     onClick={() => handleSelectAnswer(index)}
                     disabled={submitted}
-                    className={`w-full p-4 rounded-lg border-2 transition-all text-left font-medium ${
+                    className={`w-full p-4 rounded-lg border-2 transition-all text-right font-medium ${
                       answers[currentQuestion] === index
-                        ? "border-primary bg-primary/10 text-primary"
-                        : "border-border/50 hover:border-primary/50 hover:bg-muted/30"
+                        ? "border-[#1D96D3] bg-[#1D96D3]/10 text-white"
+                        : "border-white/30 hover:border-[#1D96D3]/70 hover:bg-white/10"
                     }`}
                   >
                     <div className="flex items-center gap-3">
                       <div
                         className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                          answers[currentQuestion] === index ? "border-primary bg-primary" : "border-border/50"
+                          answers[currentQuestion] === index
+                            ? "border-[#1D96D3] bg-[#1D96D3]"
+                            : "border-white/40"
                         }`}
                       >
                         {answers[currentQuestion] === index && (
-                          <div className="w-2 h-2 rounded-full bg-primary-foreground" />
+                          <div className="w-2 h-2 rounded-full bg-white" />
                         )}
                       </div>
-                      {option}
+                      <span className="flex-1">{option}</span>
                     </div>
                   </button>
                 ))}
               </div>
 
               {/* Navigation */}
-              <div className="flex gap-4 pt-6 border-t border-border/50">
-                <Button variant="outline" onClick={handlePreviousQuestion} disabled={currentQuestion === 0}>
-                  Previous
+              <div className="flex gap-4 pt-6 border-t border-white/20">
+                <Button
+                  variant="outline"
+                  onClick={handlePreviousQuestion}
+                  disabled={currentQuestion === 0}
+                  className="border-white/40 text-white hover:bg-white/10"
+                >
+                  السابق
                 </Button>
                 <Button
                   variant="outline"
                   onClick={handleNextQuestion}
                   disabled={currentQuestion === questions.length - 1}
+                  className="border-white/40 text-white hover:bg.white/10"
                 >
-                  Next
+                  التالي
                 </Button>
                 {currentQuestion === questions.length - 1 && (
                   <Button
                     onClick={handleSubmitQuiz}
                     disabled={!isAnswered}
-                    className="ml-auto bg-primary hover:bg-primary/90"
+                    className="ml-auto bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] hover:opacity-90 text-white"
                   >
-                    Submit Quiz
+                    إنهاء الاختبار
                   </Button>
                 )}
               </div>
@@ -211,31 +237,38 @@ export default function QuizPage() {
             <div className="text-center">
               <div className="inline-block mb-6">
                 {score >= 70 ? (
-                  <CheckCircle2 className="w-20 h-20 text-green-600" />
+                  <CheckCircle2 className="w-20 h-20 text-green-300" />
                 ) : (
-                  <XCircle className="w-20 h-20 text-red-600" />
+                  <XCircle className="w-20 h-20 text-red-300" />
                 )}
               </div>
-              <h1 className="text-4xl font-bold mb-2">{score >= 70 ? "Great Job!" : "Try Again"}</h1>
-              <p className="text-muted-foreground text-lg">
-                You scored <span className="text-primary font-bold">{score}%</span>
+              <h1 className="text-4xl font-bold mb-2">
+                {score >= 70 ? "نتيجة ممتازة!" : "حاول مرة أخرى"}
+              </h1>
+              <p className="text-slate-100/80 text-lg">
+                حصلت على <span className="text-[#97C945] font-bold">{score}%</span>
               </p>
             </div>
 
             {/* Results Details */}
-            <Card className="glass-effect border-border/50 p-8">
-              <h2 className="text-2xl font-bold mb-6">Your Answers</h2>
+            <Card className="glass-effect border-white/30 bg-black/40 p-8 text-white">
+              <h2 className="text-2xl font-bold mb-6">إجاباتك</h2>
               <div className="space-y-4">
                 {questions.map((q, index) => (
-                  <div key={index} className="pb-4 border-b border-border/50">
+                  <div key={index} className="pb-4 border-b border-white/20">
                     <p className="font-semibold mb-2">{q.question}</p>
                     <p
-                      className={`text-sm mb-1 ${answers[index] === q.correctAnswer ? "text-green-600" : "text-red-600"}`}
+                      className={`text-sm mb-1 ${
+                        answers[index] === q.correctAnswer ? "text-green-300" : "text-red-300"
+                      }`}
                     >
-                      Your answer: {q.options[answers[index]]}
+                      إجابتك:{" "}
+                      {answers[index] >= 0 ? q.options[answers[index]] : "لم يتم اختيار إجابة"}
                     </p>
                     {answers[index] !== q.correctAnswer && (
-                      <p className="text-sm text-green-600">Correct answer: {q.options[q.correctAnswer]}</p>
+                      <p className="text-sm text-green-300">
+                        الإجابة الصحيحة: {q.options[q.correctAnswer]}
+                      </p>
                     )}
                   </div>
                 ))}
@@ -245,7 +278,9 @@ export default function QuizPage() {
             {/* Action Buttons */}
             <div className="flex gap-4">
               <Link href="/dashboard" className="flex-1">
-                <Button className="w-full bg-primary hover:bg-primary/90">Back to Dashboard</Button>
+                <Button className="w-full bg-gradient-to-r from-[#97C945] via-[#1D96D3] to-[#3F1F8C] hover:opacity-90 text-white">
+                  الرجوع للوحة التحكم
+                </Button>
               </Link>
               {score < 70 && (
                 <Button
@@ -256,9 +291,9 @@ export default function QuizPage() {
                     setAnswers(new Array(questions.length).fill(-1))
                     setScore(0)
                   }}
-                  className="flex-1"
+                  className="flex-1 border-white/40 text-white hover:bg-white/10"
                 >
-                  Retake Quiz
+                  إعادة الاختبار
                 </Button>
               )}
             </div>

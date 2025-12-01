@@ -117,7 +117,7 @@ export default function DashboardPage() {
               <h1 className="text-lg md:text-2xl font-bold text-slate-900">لوحة التحكم التعليمية</h1>
             </div>
             <p className="text-slate-600 text-xs md:text-sm">
-              أهلاً، {user.name || user.email} – استمر في تعلّم دوراتك من يوتيوب
+              أهلاً، {user.name || user.email} – استمر في تعلّم دوراتك  
             </p>
           </div>
           <Button

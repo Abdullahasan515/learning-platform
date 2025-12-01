@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { useParams, useRouter } from "next/navigation"
+import { useParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -150,7 +150,6 @@ const COURSE_DATA: Record<number, CourseDetail> = {
 
 export default function CoursePage() {
   const params = useParams()
-  const router = useRouter()
   const [course, setCourse] = useState<CourseDetail | null>(null)
   const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null)
 
@@ -168,42 +167,40 @@ export default function CoursePage() {
   const completedLessons = course.lessons.filter((l) => l.completed).length
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1D96D3] via-[#3F1F8C] to-[#020617]">
+    <div className="min-h-screen bg-gradient-to-br from-[#1D96D3] via-[#3F1F8C] to-[#020617] text-white">
       {/* Header */}
-      <header className="border-b border-white/20 backdrop-blur-xl sticky top-0 z-40 bg-black/30">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-3">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="relative w-10 h-10 md:w-14 md:h-14">
-                <Image
-                  src="/apple-icon.png"
-                  alt="شعار المنصة التعليمية"
-                  fill
-                  priority
-                  className="object-contain drop-shadow-[0_0_30px_rgba(56,189,248,0.7)]"
-                />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-white">{course.title}</h1>
-                <p className="text-slate-100/80 text-sm">{course.instructor}</p>
-              </div>
+      <header className="border-b border-white/20 backdrop-blur-xl sticky top-0 z-40 bg-[#020617]/90">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="relative w-14 h-14 md:w-16 md:h-16">
+              <Image
+                src="/apple-icon.png"
+                alt="شعار المنصة التعليمية"
+                fill
+                priority
+                className="object-contain drop-shadow-[0_0_30px_rgba(56,189,248,0.8)]"
+              />
             </div>
-            <Link href="/dashboard">
-              <Button variant="ghost" className="gap-2 text-slate-100 hover:text-white">
-                <ArrowLeft className="w-4 h-4" />
-                العودة للدورات
-              </Button>
-            </Link>
+            <div>
+              <h1 className="text-xl md:text-2xl font-bold">{course.title}</h1>
+              <p className="text-slate-100/80 text-sm">{course.instructor}</p>
+            </div>
           </div>
+          <Link href="/dashboard">
+            <Button variant="ghost" className="gap-2 text-slate-100 hover:text-white hover:bg-white/10">
+              <ArrowLeft className="w-4 h-4" />
+              العودة للدورات
+            </Button>
+          </Link>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
+      <main className="max-w-7xl mx-auto px-4 md:px-6 py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Lesson Content - Main */}
           <div className="lg:col-span-2">
             {selectedLesson && (
-              <Card className="glass-effect border-white/30 bg-black/40 p-8 text-white">
+              <Card className="border border-white/25 bg-[#020617] p-6 md:p-8 text.white shadow-xl shadow-black/50">
                 {/* Video/Content Area */}
                 <div className="bg-white/5 rounded-lg mb-8 flex flex-col items-center justify-center overflow-hidden">
                   {selectedLesson.type === "video" && selectedLesson.videoUrl ? (
@@ -216,7 +213,7 @@ export default function CoursePage() {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                       className="rounded-lg"
-                    ></iframe>
+                    />
                   ) : selectedLesson.type === "video" && selectedLesson.image ? (
                     <div className="w-full">
                       <img
@@ -226,12 +223,12 @@ export default function CoursePage() {
                       />
                     </div>
                   ) : selectedLesson.type === "quiz" ? (
-                    <div className="p-12 flex flex-col items-center justify-center min-h-96">
+                    <div className="p-12 flex flex-col items-center justify-center min-h-[24rem]">
                       <Award className="w-16 h-16 text-[#97C945] mb-4" />
                       <p className="text-slate-100/80">اختبار: {selectedLesson.title}</p>
                     </div>
                   ) : (
-                    <div className="p-12 flex flex-col items-center justify-center min-h-96">
+                    <div className="p-12 flex flex-col items-center justify-center min-h-[24rem]">
                       <BookOpen className="w-16 h-16 text-[#1D96D3] mb-4" />
                       <p className="text-slate-100/80">محاضرة: {selectedLesson.title}</p>
                     </div>
@@ -249,7 +246,7 @@ export default function CoursePage() {
                       </div>
                     )}
                   </div>
-                  <div className="flex items-center gap-4 text-slate-100/80">
+                  <div className="flex items-center gap-4 text-slate-100/85">
                     <span className="flex items-center gap-1">
                       <Clock className="w-4 h-4" />
                       {selectedLesson.duration}
@@ -261,7 +258,7 @@ export default function CoursePage() {
                 </div>
 
                 {/* Description */}
-                <p className="text-slate-100/80 mb-8">{course.description}</p>
+                <p className="text-slate-100/85 mb-8">{course.description}</p>
 
                 {/* Action Buttons */}
                 <div className="flex gap-4 pt-6 border-t border-white/20">
@@ -283,7 +280,7 @@ export default function CoursePage() {
 
           {/* Sidebar - Lesson List */}
           <div>
-            <Card className="glass-effect border-white/30 bg-black/40 p-6 sticky top-24 text-white">
+            <Card className="border border.white/25 bg-[#020617] p-6 sticky top-24 text-white shadow-lg shadow-black/50">
               {/* Progress */}
               <div className="mb-6">
                 <div className="flex justify-between items-center mb-2">

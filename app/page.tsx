@@ -93,7 +93,7 @@ export default function HomePage() {
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 animate-pulse">
               <span className="block text-slate-900">نظام تعليم إلكتروني</span>
               <span className="block bg-gradient-to-r from-[#3F1F8C] via-[#1D96D3] to-[#97C945] bg-clip-text text-transparent">
-                سحابي • عصري • متكامل
+                لطلابنا • تعليم عالي • تكامل
               </span>
             </h1>
             <p className="text-base md:text-lg text-slate-700 mb-8.leading-relaxed">
